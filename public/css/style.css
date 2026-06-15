@@ -1,0 +1,114 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:        #000000;
+  --ember:     #c94a1a;
+  --ember-hot: #ff8c00;
+  --ash:       #9a8070;
+  --parchment: #f0e6d0;
+  --bone:      #faf4e8;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--parchment);
+  font-family: 'Cinzel', serif;
+}
+
+#sparks {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.site-title {
+  font-family: 'Almendra Display', serif;
+  font-size: clamp(2.8rem, 8vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: var(--bone);
+  line-height: 1.1;
+  text-shadow:
+    0 0 20px rgba(255, 140, 0, 0.9),
+    0 0 50px rgba(201, 74, 26, 0.7),
+    0 0 100px rgba(180, 50, 10, 0.4),
+    0 4px 8px rgba(0, 0, 0, 1);
+  animation: title-flicker 4s ease-in-out infinite alternate;
+}
+
+@keyframes title-flicker {
+  0%   { text-shadow: 0 0 20px rgba(255,140,0,0.9), 0 0 50px rgba(201,74,26,0.7), 0 0 100px rgba(180,50,10,0.4), 0 4px 8px #000; }
+  33%  { text-shadow: 0 0 15px rgba(255,140,0,0.7), 0 0 40px rgba(201,74,26,0.5), 0 0  80px rgba(180,50,10,0.3), 0 4px 8px #000; }
+  66%  { text-shadow: 0 0 25px rgba(255,160,0,1.0), 0 0 60px rgba(220,80,20,0.8), 0 0 120px rgba(180,50,10,0.5), 0 4px 8px #000; }
+  100% { text-shadow: 0 0 18px rgba(255,120,0,0.8), 0 0 45px rgba(201,74,26,0.6), 0 0  90px rgba(180,50,10,0.35),0 4px 8px #000; }
+}
+
+.flame-divider {
+  width: 55%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ember) 15%,
+    var(--ember-hot) 35%,
+    #ffdd88 50%,
+    var(--ember-hot) 65%,
+    var(--ember) 85%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 6px var(--ember-hot),
+    0 0 18px rgba(255, 140, 0, 0.6),
+    0 0 40px rgba(201, 74, 26, 0.35);
+  animation: ember-pulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes ember-pulse {
+  from {
+    box-shadow: 0 0 6px var(--ember-hot), 0 0 18px rgba(255,140,0,0.6), 0 0 40px rgba(201,74,26,0.35);
+    opacity: 0.75;
+  }
+  to {
+    box-shadow: 0 0 10px var(--ember-hot), 0 0 30px rgba(255,140,0,0.85), 0 0 65px rgba(201,74,26,0.55);
+    opacity: 1;
+  }
+}
+
+.tagline {
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: clamp(1.5rem, 3.75vw, 2.1rem);
+  letter-spacing: 0.05em;
+  color: var(--ash);
+  text-shadow: 0 0 12px rgba(201, 74, 26, 0.4);
+}
