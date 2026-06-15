@@ -15,7 +15,6 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;
 }
 
 body {
@@ -43,6 +42,7 @@ main {
   justify-content: center;
   text-align: center;
   padding: 2rem;
+  padding-top: calc(60px + 2rem);
 }
 
 .hero-content {
@@ -112,3 +112,159 @@ main {
   color: var(--ash);
   text-shadow: 0 0 12px rgba(201, 74, 26, 0.4);
 }
+
+/* ── Navigation ── */
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.90);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  height: 100%;
+}
+
+.nav-item {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-item > a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 1.1rem;
+  font-family: 'IM Fell English SC', serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--ash);
+  text-decoration: none;
+  transition: color 0.2s, text-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.nav-item > a:hover,
+.nav-item:hover > a {
+  color: var(--bone);
+  text-shadow: 0 0 10px rgba(255, 140, 0, 0.65);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  background: rgba(5, 3, 1, 0.97);
+  border: 1px solid rgba(201, 74, 26, 0.25);
+  border-top: 1px solid rgba(255, 140, 0, 0.4);
+  min-width: 230px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.9), 0 0 24px rgba(201,74,26,0.08);
+}
+
+.nav-item:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown li a {
+  display: block;
+  padding: 0.65rem 1.3rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ash);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.dropdown li a:hover {
+  color: var(--ember-hot);
+  background: rgba(201, 74, 26, 0.07);
+  border-left-color: var(--ember);
+}
+
+.nav-cta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-shrink: 0;
+  padding-left: 1.5rem;
+}
+
+.btn-cta {
+  padding: 0.45rem 1.1rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border: 1px solid;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-bonfire {
+  color: var(--ember-hot);
+  border-color: var(--ember);
+  box-shadow: 0 0 8px rgba(201, 74, 26, 0.25), inset 0 0 8px rgba(201, 74, 26, 0.04);
+}
+
+.btn-bonfire:hover {
+  color: var(--bone);
+  background: rgba(201, 74, 26, 0.14);
+  box-shadow: 0 0 18px rgba(255, 140, 0, 0.45), inset 0 0 14px rgba(201, 74, 26, 0.1);
+}
+
+.btn-watch {
+  color: var(--ash);
+  border-color: rgba(154, 128, 112, 0.35);
+}
+
+.btn-watch:hover {
+  color: var(--bone);
+  border-color: var(--ash);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
+}
+
+.nav-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--ember) 15%,
+    var(--ember-hot) 35%,
+    #ffdd88 50%,
+    var(--ember-hot) 65%,
+    var(--ember) 85%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 6px var(--ember-hot),
+    0 0 18px rgba(255, 140, 0, 0.5);
+  animation: ember-pulse 2.5s ease-in-out infinite alternate;
+}
+
