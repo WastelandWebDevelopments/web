@@ -15,6 +15,7 @@
 
 html, body {
   height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -77,6 +78,7 @@ main {
 .flame-divider {
   width: 55%;
   height: 2px;
+  margin: 0.6rem 0;
   background: linear-gradient(
     90deg,
     transparent 0%,
@@ -155,7 +157,7 @@ main {
   height: 100%;
   padding: 0 1.1rem;
   font-family: 'IM Fell English SC', serif;
-  font-size: 1.44rem;
+  font-size: 1.3rem;
   letter-spacing: 0.08em;
   color: #fff9f2;
   text-decoration: none;
@@ -237,11 +239,35 @@ main {
   transform: translateY(0);
 }
 
+.dropdown li:not(:last-child) {
+  position: relative;
+}
+
+.dropdown li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 1.3rem;
+  right: 1.3rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 74, 26, 0.5) 15%,
+    rgba(255, 140, 0, 0.75) 50%,
+    rgba(201, 74, 26, 0.5) 85%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 4px rgba(255, 140, 0, 0.8),
+    0 0 10px rgba(201, 74, 26, 0.55);
+}
+
 .dropdown li a {
   display: block;
   padding: 0.65rem 1.3rem;
   font-family: 'Cinzel', serif;
-  font-size: 1.26rem;
+  font-size: 1.14rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #fff4e8;
@@ -274,10 +300,12 @@ main {
   padding-left: 1.5rem;
 }
 
+.btn-short { display: none; }
+
 .btn-cta {
   padding: 0.45rem 1.1rem;
   font-family: 'Cinzel', serif;
-  font-size: 1.26rem;
+  font-size: 1.14rem;
   letter-spacing: 0.1em;
   text-decoration: none;
   border: 1px solid;
@@ -310,6 +338,7 @@ main {
 
 .nav-divider {
   height: 2px;
+  margin-top: 6px;
   background: linear-gradient(
     90deg,
     transparent 0%,
@@ -355,33 +384,80 @@ main {
 /* ── Mobile responsive ────────────────────────────────────────────────────── */
 
 @media (max-width: 1024px) {
-  .nav-toggle { display: flex; }
-
-  .nav-inner {
-    flex-wrap: wrap;
-    padding: 0 1.25rem;
+  /* Hamburger visible */
+  .nav-toggle {
+    display: flex;
+    order: 1;
+    flex-shrink: 0;
   }
 
+  /* Nav bar row: hamburger left, CTA right, links wrap below */
+  .nav-inner {
+    flex-wrap: wrap;
+    padding: 0 1rem;
+    height: auto;
+    min-height: 60px;
+    align-items: center;
+    align-content: flex-start;
+  }
+
+  /* CTAs always pinned to the right — never hidden */
+  .nav-cta {
+    order: 2;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0;
+    padding-left: 0;
+    margin-left: auto;
+    align-items: center;
+    flex-shrink: 0;
+    height: 60px;
+  }
+
+  /* Short labels on mobile */
+  .btn-long  { display: none; }
+  .btn-short { display: inline; }
+
+  .btn-cta {
+    padding: 0.32rem 0.65rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  /* Accordion links wrap to full-width row below */
   .nav-links {
+    order: 3;
     display: none;
     flex-direction: column;
     width: 100%;
     padding: 0.5rem 0 0.75rem;
     border-top: 1px solid rgba(201, 74, 26, 0.2);
-    margin-top: 0.25rem;
   }
 
   .nav-links.is-open { display: flex; }
 
-  .nav-item {
-    height: auto;
-  }
+  .nav-item { height: auto; }
 
   .nav-item > a {
     height: auto;
-    padding: 0.85rem 0.5rem;
-    font-size: 1.1rem;
+    padding: 0.85rem 0.75rem;
+    font-size: 1.05rem;
     border-bottom: 1px solid rgba(201, 74, 26, 0.1);
+    justify-content: space-between;
+  }
+
+  /* Add a caret hint so users know it's tappable */
+  .nav-item.has-dropdown > a::after {
+    content: '›';
+    font-style: normal;
+    opacity: 0.5;
+    transition: transform 0.2s;
+  }
+
+  .nav-item.has-dropdown.is-open > a::after {
+    transform: rotate(90deg);
   }
 
   .dropdown {
@@ -396,29 +472,15 @@ main {
     background: rgba(12, 6, 2, 0.98);
     min-width: unset;
     display: none;
-    margin-left: 1rem;
+    margin-left: 1.25rem;
+    transition: none;
   }
 
   .nav-item.is-open .dropdown { display: block; }
 
   .dropdown li a {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     padding: 0.6rem 1rem;
-  }
-
-  .nav-cta {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    gap: 0.75rem;
-    padding: 0.75rem 0.5rem 1rem;
-  }
-
-  .nav-cta.is-open { display: flex; }
-
-  .btn-cta {
-    text-align: center;
-    font-size: 1rem;
   }
 
   .hero {

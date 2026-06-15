@@ -26,7 +26,7 @@ class Spark {
     this.y     = scatter ? rand(0, H) : H + rand(0, 20);
     this.vx    = rand(-0.5, 0.5);
     this.vy    = rand(-1.4, -0.3);
-    this.size  = rand(0.6, 2.2);
+    this.size  = rand(0.8, 2.2);
     this.alpha = rand(0.4, 1.0);
     this.decay = rand(0.003, 0.010);
     this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
@@ -38,9 +38,16 @@ class Spark {
     this.alpha -= this.decay;
     if (this.alpha <= 0 || this.y < -10) this.init(false);
   }
+  draw() {
+    ctx.globalAlpha = Math.max(0, this.alpha);
+    ctx.fillStyle   = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
 
-const sparks = Array.from({ length: 80 }, (_, i) => new Spark(true));
+const sparks = Array.from({ length: 50 }, (_, i) => new Spark(true));
 
 // ── Title embers ───────────────────────────────────────────────────────────
 
@@ -54,9 +61,9 @@ class TitleEmber {
     this.y     = rand(r.top + r.height * 0.2, r.bottom);
     this.vx    = rand(-0.8, 0.8);
     this.vy    = rand(-2.0, -0.5);
-    this.size  = rand(0.8, 2.6);
+    this.size  = rand(0.8, 2.4);
     this.alpha = rand(0.7, 1.0);
-    this.decay = rand(0.008, 0.020);
+    this.decay = rand(0.010, 0.022);
     this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
     this.active = true;
   }
@@ -68,9 +75,17 @@ class TitleEmber {
     this.alpha -= this.decay;
     if (this.alpha <= 0) this.init();
   }
+  draw() {
+    if (!this.active) return;
+    ctx.globalAlpha = Math.max(0, this.alpha);
+    ctx.fillStyle   = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
 
-const titleEmbers = Array.from({ length: 25 }, () => new TitleEmber());
+const titleEmbers = Array.from({ length: 15 }, () => new TitleEmber());
 
 // ── Smoke ─────────────────────────────────────────────────────────────────
 
@@ -80,16 +95,16 @@ class Smoke {
     const el = document.querySelector('.site-title');
     if (!el) { this.active = false; return; }
     const r     = el.getBoundingClientRect();
-    this.x      = rand(r.left + r.width * 0.05, r.right - r.width * 0.05);
-    this.y      = rand(r.top - 4, r.top + r.height * 0.5);
-    this.vx     = rand(-0.4, 0.4);
-    this.vy     = rand(-0.7, -0.2);
-    this.radius = rand(14, 34);
-    this.grow   = rand(0.14, 0.35);
-    this.warm   = rand(0, 1) > 0.4;
-    this.alpha  = rand(0.28, 0.55);
-    this.decay  = rand(0.002, 0.006);
-    this.gray   = Math.floor(rand(50, 100));
+    this.x      = rand(r.left + r.width * 0.08, r.right - r.width * 0.08);
+    this.y      = rand(r.top, r.top + r.height * 0.4);
+    this.vx     = rand(-0.3, 0.3);
+    this.vy     = rand(-0.5, -0.15);
+    this.radius = rand(10, 22);
+    this.grow   = rand(0.08, 0.20);
+    this.alpha  = rand(0.10, 0.28);
+    this.decay  = rand(0.001, 0.004);
+    this.warm   = Math.random() > 0.4;
+    this.gray   = Math.floor(rand(50, 95));
     this.active = true;
   }
   update() {
@@ -101,63 +116,45 @@ class Smoke {
     this.alpha  -= this.decay;
     if (this.alpha <= 0) this.init();
   }
+  draw() {
+    if (!this.active || this.alpha <= 0) return;
+    const c = this.gray;
+    const r = this.warm ? c + 18 : c;
+    const b = this.warm ? Math.max(0, c - 22) : c - 14;
+    // Simple alpha circle — no gradient per frame (perf)
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle   = `rgb(${r},${c - 4},${b})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
 
-const smoke = Array.from({ length: 32 }, () => new Smoke());
+const smoke = Array.from({ length: 15 }, () => new Smoke());
 
-// ── Loop ───────────────────────────────────────────────────────────────────
+// ── 30fps throttle ────────────────────────────────────────────────────────
 
-function loop() {
+const FRAME_MS = 1000 / 30;
+let lastFrame  = 0;
+
+function loop(ts) {
+  requestAnimationFrame(loop);
+  if (ts - lastFrame < FRAME_MS) return;
+  lastFrame = ts;
+
   ctx.clearRect(0, 0, W, H);
 
-  // smoke
+  // smoke — no shadowBlur
   ctx.shadowBlur = 0;
-  for (const s of smoke) {
-    s.update();
-    if (!s.active || s.alpha <= 0) continue;
-    const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.radius);
-    const c = s.gray;
-    // warm smoke near source (brownish), neutral gray further out
-    const r = s.warm ? c + 18 : c;
-    const b = s.warm ? Math.max(0, c - 22) : c - 14;
-    g.addColorStop(0, `rgba(${r},${c-4},${b},${s.alpha})`);
-    g.addColorStop(1, `rgba(${r},${c-4},${b},0)`);
-    ctx.globalAlpha = 1;
-    ctx.fillStyle   = g;
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-    ctx.fill();
-  }
+  for (const s of smoke) { s.update(); s.draw(); }
 
-  // sparks
-  ctx.shadowBlur = 7;
-  for (const s of sparks) {
-    s.update();
-    ctx.globalAlpha = Math.max(0, s.alpha);
-    ctx.fillStyle   = s.color;
-    ctx.shadowColor = s.color;
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
+  // sparks — no shadowBlur, just colored dots
+  for (const s of sparks) { s.update(); s.draw(); }
 
   // title embers
-  ctx.shadowBlur = 9;
-  for (const e of titleEmbers) {
-    e.update();
-    if (!e.active) continue;
-    ctx.globalAlpha = Math.max(0, e.alpha);
-    ctx.fillStyle   = e.color;
-    ctx.shadowColor = e.color;
-    ctx.beginPath();
-    ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
+  for (const e of titleEmbers) { e.update(); e.draw(); }
 
   ctx.globalAlpha = 1;
-  ctx.shadowBlur  = 0;
-
-  requestAnimationFrame(loop);
 }
 
 requestAnimationFrame(loop);

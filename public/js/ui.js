@@ -76,12 +76,10 @@ document.querySelectorAll('.dropdown li a, .btn-cta').forEach(el => {
 
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks  = document.querySelector('.nav-links');
-const navCta    = document.querySelector('.nav-cta');
 
 navToggle.addEventListener('click', () => {
   const open = navToggle.classList.toggle('is-open');
   navLinks.classList.toggle('is-open', open);
-  navCta.classList.toggle('is-open', open);
   playClick();
 });
 
@@ -90,9 +88,8 @@ document.querySelectorAll('.nav-item.has-dropdown > a').forEach(link => {
   link.addEventListener('click', e => {
     if (window.innerWidth <= 1024) {
       e.preventDefault();
-      const item = link.closest('.nav-item');
+      const item    = link.closest('.nav-item');
       const wasOpen = item.classList.contains('is-open');
-      // close all siblings first
       document.querySelectorAll('.nav-item.has-dropdown').forEach(i => i.classList.remove('is-open'));
       if (!wasOpen) {
         item.classList.add('is-open');
@@ -102,13 +99,12 @@ document.querySelectorAll('.nav-item.has-dropdown > a').forEach(link => {
   });
 });
 
-// Close menu when a dropdown link is tapped on mobile
+// Close accordion when a leaf link is tapped on mobile
 document.querySelectorAll('.dropdown li a').forEach(link => {
   link.addEventListener('click', () => {
     if (window.innerWidth <= 1024) {
       navToggle.classList.remove('is-open');
       navLinks.classList.remove('is-open');
-      navCta.classList.remove('is-open');
     }
   });
 });
