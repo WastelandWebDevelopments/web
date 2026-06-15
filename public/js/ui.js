@@ -99,6 +99,49 @@ document.querySelectorAll('.nav-item.has-dropdown > a').forEach(link => {
   });
 });
 
+// ── Mission scroll — trigger-based unroll ─────────────────────────────────
+
+const missionWrapper = document.querySelector('.mission-scroll-wrapper');
+
+if (missionWrapper) {
+  const missionScroll = missionWrapper.querySelector('.mission-scroll');
+  let wordEls   = [];
+  let fullH     = 0;
+  let triggered = false;
+
+  missionScroll.querySelectorAll('p').forEach(p => {
+    const words = p.textContent.trim().split(/\s+/);
+    p.innerHTML = words.map(w => `<span class="word">${w}</span>`).join(' ');
+  });
+  wordEls = [...missionScroll.querySelectorAll('.word')];
+
+  function openScroll() {
+    if (triggered || !fullH) return;
+    triggered = true;
+    missionScroll.style.height = fullH + 'px';
+    wordEls.forEach((w, i) => {
+      setTimeout(() => w.classList.add('revealed'), i * 88 + 250);
+    });
+  }
+
+  // Measure after fonts load so Cinzel line-heights are accurate
+  document.fonts.ready.then(() => {
+    missionScroll.style.height = 'auto';
+    fullH = missionScroll.offsetHeight;
+    missionScroll.style.height = '0px';
+  });
+
+  // Fire when the wrapper is 25% into the viewport from the bottom
+  new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      // Small delay lets fonts.ready resolve first if it hasn't yet
+      setTimeout(openScroll, 60);
+      obs.unobserve(missionWrapper);
+    });
+  }, { threshold: 0.25 }).observe(missionWrapper);
+}
+
 // Close accordion when a leaf link is tapped on mobile
 document.querySelectorAll('.dropdown li a').forEach(link => {
   link.addEventListener('click', () => {

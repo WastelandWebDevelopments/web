@@ -33,7 +33,35 @@ body {
 
 main {
   position: relative;
-  z-index: 1;
+  z-index: 3;
+}
+
+/* ── Fixed characters ── */
+
+.char {
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  width: 16vw;
+  max-width: 220px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.char-left  { left: 0; }
+.char-right { right: 0; }
+
+.char img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: bottom;
+  filter: drop-shadow(0 0 18px rgba(201, 74, 26, 0.35));
+}
+
+@media (max-width: 1100px) {
+  .char { display: none; }
 }
 
 .hero {
@@ -353,6 +381,219 @@ main {
     0 0 6px var(--ember-hot),
     0 0 18px rgba(255, 140, 0, 0.5);
   animation: ember-pulse 2.5s ease-in-out infinite alternate;
+}
+
+/* ── Page sections ── */
+
+.page-section {
+  padding: 6rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.section-alt {
+  background: #080402;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-header .flame-divider {
+  width: 45%;
+  margin: 0.75rem auto 0;
+}
+
+.section-title {
+  font-family: 'IM Fell English SC', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: var(--bone);
+  text-shadow:
+    0 0 12px rgba(255, 140, 0, 0.7),
+    0 0 30px rgba(201, 74, 26, 0.5),
+    0 0 60px rgba(180, 50, 10, 0.3),
+    0 3px 6px rgba(0, 0, 0, 1);
+}
+
+.subsection-title {
+  font-family: 'IM Fell English SC', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  color: var(--ember-hot);
+  text-shadow:
+    0 0 8px rgba(255, 140, 0, 0.6),
+    0 0 20px rgba(201, 74, 26, 0.4);
+  margin-bottom: 1rem;
+}
+
+.subsection {
+  border-left: 2px solid rgba(201, 74, 26, 0.3);
+  padding-left: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.body-text {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  color: var(--ash);
+  line-height: 1.85;
+}
+
+/* ── About ── */
+
+.about-intro {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 4rem;
+  align-items: start;
+  margin-bottom: 3.5rem;
+}
+
+.about-portrait {
+  position: sticky;
+  top: 80px;
+}
+
+.placeholder-portrait {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: rgba(201, 74, 26, 0.04);
+  border: 1px solid rgba(201, 74, 26, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ember);
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  box-shadow:
+    0 0 20px rgba(201, 74, 26, 0.08),
+    inset 0 0 30px rgba(201, 74, 26, 0.03);
+}
+
+.mission-section {
+  border-left: none;
+  padding-left: 0;
+}
+
+/* ── Mission scroll ── */
+
+.mission-scroll-wrapper {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.scroll-roller {
+  height: 28px;
+  background: linear-gradient(
+    to bottom,
+    #1e1005,
+    #5c350c 28%,
+    #8a5218 50%,
+    #5c350c 72%,
+    #1e1005
+  );
+  border-radius: 14px;
+  position: relative;
+  z-index: 2;
+}
+
+.scroll-roller:first-child {
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.9),
+    0 8px 22px rgba(0, 0, 0, 0.65),
+    inset 0 2px 5px rgba(255, 185, 75, 0.2);
+}
+
+.scroll-roller:last-child {
+  box-shadow:
+    0 -4px 14px rgba(0, 0, 0, 0.9),
+    0 -8px 22px rgba(0, 0, 0, 0.65),
+    inset 0 -2px 5px rgba(255, 185, 75, 0.2);
+}
+
+.mission-scroll {
+  height: 0;
+  overflow: hidden;
+  transition: height 3s cubic-bezier(0.22, 0, 0.1, 1);
+  padding: 0 3.5rem;
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(255, 245, 200, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 90%, rgba(200, 150, 60, 0.12) 0%, transparent 55%),
+    linear-gradient(
+      160deg,
+      #b5905a 0%,
+      #c8a568 8%,
+      #dcbc88 25%,
+      #e8d0a0 50%,
+      #dcbc88 75%,
+      #c8a568 92%,
+      #b5905a 100%
+    );
+  box-shadow:
+    inset 0 0 60px rgba(90, 48, 5, 0.2),
+    inset 4px 0 12px rgba(0, 0, 0, 0.15),
+    inset -4px 0 12px rgba(0, 0, 0, 0.15);
+}
+
+.mission-scroll p {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.88rem, 1.4vw, 0.98rem);
+  line-height: 2;
+  color: #180c01;
+  margin-bottom: 1.75rem;
+}
+
+.mission-scroll p:first-child { padding-top: 2.5rem; }
+.mission-scroll p:last-child  { margin-bottom: 0; padding-bottom: 2.5rem; }
+
+/* ── Word burn-in animation ── */
+
+@keyframes burn-in {
+  0% {
+    opacity: 0;
+    color: rgba(255, 140, 30, 0);
+    text-shadow: none;
+  }
+  10% {
+    opacity: 1;
+    color: #ffcc66;
+    text-shadow:
+      0 0 2px #ffffff,
+      0 0 6px #ffcc00,
+      0 0 14px #ff8800,
+      0 0 28px rgba(230, 55, 0, 0.9),
+      0 0 50px rgba(160, 20, 0, 0.65);
+  }
+  35% {
+    color: #7a2e00;
+    text-shadow:
+      0 0 4px rgba(210, 85, 10, 0.75),
+      0 0 12px rgba(190, 55, 5, 0.45),
+      0 0 24px rgba(150, 30, 0, 0.25);
+  }
+  100% {
+    opacity: 1;
+    color: #180c01;
+    text-shadow:
+      0 0 3px rgba(130, 50, 5, 0.4),
+      0 0 7px rgba(175, 65, 8, 0.2);
+  }
+}
+
+.word {
+  display: inline-block;
+  opacity: 0;
+}
+
+.word.revealed {
+  animation: burn-in 0.8s ease-out forwards;
 }
 
 /* ── Hamburger button ─────────────────────────────────────────────────────── */
