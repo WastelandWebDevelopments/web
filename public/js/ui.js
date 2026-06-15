@@ -8,6 +8,26 @@ function getAC() {
   return ac;
 }
 
+let whooshBuffer = null;
+
+fetch('/sounds/mixkit-dagger-woosh-1487.wav')
+  .then(r => r.arrayBuffer())
+  .then(data => getAC().decodeAudioData(data))
+  .then(buf => { whooshBuffer = buf; })
+  .catch(() => {});
+
+function playWhoosh() {
+  if (!whooshBuffer) return;
+  const ctx = getAC();
+  const src = ctx.createBufferSource();
+  src.buffer = whooshBuffer;
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(0.6, ctx.currentTime);
+  src.connect(g);
+  g.connect(ctx.destination);
+  src.start(ctx.currentTime);
+}
+
 function playClick() {
   const ctx = getAC();
   const now = ctx.currentTime;
@@ -67,8 +87,11 @@ function playClick() {
   imp.start(now);
 }
 
-// Wire sound to all interactive nav elements
-document.querySelectorAll('.dropdown li a, .btn-cta').forEach(el => {
+// Wire whoosh to dropdown subsection links, click to CTAs
+document.querySelectorAll('.dropdown li a').forEach(el => {
+  el.addEventListener('click', playWhoosh);
+});
+document.querySelectorAll('.btn-cta').forEach(el => {
   el.addEventListener('click', playClick);
 });
 
@@ -140,6 +163,65 @@ if (missionWrapper) {
       obs.unobserve(missionWrapper);
     });
   }, { threshold: 0.25 }).observe(missionWrapper);
+}
+
+// ── Ember Codex cards ─────────────────────────────────────────────────────
+
+document.querySelectorAll('.codex-card .card-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.codex-card');
+    const body = card.querySelector('.card-body');
+    const isOpen = card.classList.contains('is-open');
+
+    document.querySelectorAll('.codex-card.is-open').forEach(c => {
+      c.classList.remove('is-open');
+      c.querySelector('.card-body').style.maxHeight = '0';
+    });
+
+    if (!isOpen) {
+      card.classList.add('is-open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      playWhoosh();
+    }
+  });
+});
+
+// ── Bonfire lore fade-in ───────────────────────────────────────────────────
+
+const bonfireEls = document.querySelectorAll(
+  '.bonfire-creed, .bonfire-title, .bonfire-para, .bonfire-callout, .bonfire-highlight, .bonfire-tagline, .bonfire-sig'
+);
+
+if (bonfireEls.length) {
+  const bonfireObs = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('bonfire-visible');
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+
+  bonfireEls.forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.08}s`;
+    bonfireObs.observe(el);
+  });
+}
+
+// ── Terminology search ─────────────────────────────────────────────────────
+
+const termSearch = document.querySelector('.term-search');
+if (termSearch) {
+  termSearch.addEventListener('input', () => {
+    const q = termSearch.value.trim().toLowerCase();
+    const entries = document.querySelectorAll('.term-entry');
+    let visible = 0;
+    entries.forEach(entry => {
+      const match = !q || entry.textContent.toLowerCase().includes(q);
+      entry.hidden = !match;
+      if (match) visible++;
+    });
+    document.querySelector('.term-no-results').hidden = visible > 0;
+  });
 }
 
 // Close accordion when a leaf link is tapped on mobile

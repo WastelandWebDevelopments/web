@@ -16,6 +16,7 @@
 html, body {
   height: 100%;
   overflow-x: hidden;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -41,26 +42,27 @@ main {
 .char {
   position: fixed;
   bottom: 0;
-  z-index: 2;
-  width: 16vw;
-  max-width: 220px;
+  z-index: 1;
   pointer-events: none;
   user-select: none;
+  opacity: 0.55;
 }
 
-.char-left  { left: 0; }
-.char-right { right: 0; }
+.char-left  { left: -2vw; }
+.char-right { right: 17px; transform: translateY(6%); opacity: 0.75; }
 
 .char img {
-  width: 100%;
-  height: auto;
   display: block;
+  width: auto;
   object-fit: contain;
   object-position: bottom;
-  filter: drop-shadow(0 0 18px rgba(201, 74, 26, 0.35));
+  filter: drop-shadow(0 0 4px rgba(201, 74, 26, 0.2));
 }
 
-@media (max-width: 1100px) {
+.char-left img  { height: 92vh; }
+.char-right img { height: 46vh; }
+
+@media (max-width: 768px) {
   .char { display: none; }
 }
 
@@ -444,6 +446,146 @@ main {
   line-height: 1.85;
 }
 
+/* ── Bonfire Lore ── */
+
+.bonfire-lore {
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+
+.bonfire-creed {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.bonfire-title {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+  color: #f8d7a0;
+  text-shadow:
+    0 0 12px rgba(255, 140, 40, 0.7),
+    0 0 30px rgba(201, 74, 26, 0.4);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.bonfire-divider {
+  width: 60%;
+  margin: 0 auto 3rem;
+}
+
+.bonfire-body {
+  text-align: left;
+}
+
+.bonfire-para {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  color: #e8dcc8;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.bonfire-callout {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+  color: var(--ember-hot);
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.bonfire-highlight {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(1.05rem, 2vw, 1.28rem);
+  color: #ffb366;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.bonfire-tagline {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ember-hot);
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.bonfire-tagline.bonfire-visible {
+  animation: bonfire-pulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes bonfire-pulse {
+  from { text-shadow: 0 0 8px rgba(255, 140, 0, 0.5); }
+  to   { text-shadow: 0 0 18px rgba(255, 140, 0, 0.95), 0 0 35px rgba(201, 74, 26, 0.55); }
+}
+
+.bonfire-sig {
+  margin-top: 3.5rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.sig-rule {
+  width: 40%;
+  height: 1px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(90deg, transparent, var(--ember), transparent);
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.4);
+}
+
+.sig-rank {
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.5rem;
+}
+
+.sig-name {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: clamp(0.95rem, 1.8vw, 1.3rem);
+  color: #f8d7a0;
+  text-shadow: 0 0 10px rgba(255, 140, 40, 0.6);
+  letter-spacing: 0.1em;
+}
+
+.bonfire-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
 /* ── About ── */
 
 .about-intro {
@@ -596,6 +738,88 @@ main {
   animation: burn-in 0.8s ease-out forwards;
 }
 
+/* ── Lore & Terminology ── */
+
+.lore-block {
+  margin-bottom: 3rem;
+}
+
+.lore-heading {
+  font-family: 'IM Fell English SC', serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--ash);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.terminology-block {
+  margin-top: 0.5rem;
+}
+
+.term-search-wrap {
+  margin-bottom: 2rem;
+}
+
+.term-search {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 74, 26, 0.35);
+  border-radius: 2px;
+  padding: 0.6rem 1rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: var(--parchment);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.term-search::placeholder {
+  color: rgba(154, 128, 112, 0.5);
+}
+
+.term-search:focus {
+  border-color: var(--ember-hot);
+  box-shadow: 0 0 12px rgba(255, 140, 0, 0.2), 0 0 30px rgba(201, 74, 26, 0.1);
+}
+
+.term-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.term-entry {
+  border-left: 2px solid rgba(201, 74, 26, 0.4);
+  padding-left: 1.25rem;
+}
+
+.term-name {
+  font-family: 'IM Fell English SC', serif;
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  color: var(--ember-hot);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+  text-shadow: 0 0 8px rgba(255, 140, 0, 0.4);
+}
+
+.term-def {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  color: var(--ash);
+  line-height: 1.85;
+}
+
+.term-no-results {
+  font-family: 'Cinzel', serif;
+  font-size: 0.88rem;
+  color: rgba(154, 128, 112, 0.5);
+  letter-spacing: 0.1em;
+  padding-left: 1.25rem;
+}
+
 /* ── Hamburger button ─────────────────────────────────────────────────────── */
 
 .nav-toggle {
@@ -737,5 +961,251 @@ main {
   .site-title { font-size: clamp(2rem, 11vw, 3.5rem); }
   .tagline    { font-size: clamp(1.1rem, 5vw, 1.5rem); }
   .flame-divider { width: 90%; }
+}
+
+/* ── Ember Codex ──────────────────────────────────────────────────────────── */
+
+.codex-section {
+  background: #080808;
+  position: relative;
+  overflow: hidden;
+}
+
+.codex-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 30%, rgba(201, 74, 26, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 70%, rgba(150, 40, 10, 0.04) 0%, transparent 55%);
+  animation: fog-drift 9s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes fog-drift {
+  from { transform: translateX(-12px); opacity: 0.6; }
+  to   { transform: translateX(12px);  opacity: 1.0; }
+}
+
+.codex-main-title {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: #F4D4A4;
+  text-shadow:
+    0 0 10px rgba(255, 140, 50, 0.6),
+    0 0 20px rgba(255, 90, 20, 0.4);
+  margin-bottom: 0.75rem;
+}
+
+.codex-subtitle {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  color: var(--ash);
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+/* ── Cards ── */
+
+.codex-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+
+.codex-card {
+  background: rgba(15, 15, 15, 0.95);
+  border: 1px solid rgba(255, 120, 40, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255, 100, 30, 0.08);
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+
+.codex-card:hover {
+  border-color: rgba(255, 120, 40, 0.5);
+  box-shadow: 0 0 28px rgba(255, 100, 30, 0.18);
+  background: rgba(20, 16, 12, 0.98);
+}
+
+.card-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 1.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.card-term-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.8rem, 1.3vw, 0.92rem);
+  color: #F4D4A4;
+  letter-spacing: 0.06em;
+  flex: 1;
+}
+
+.card-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+.badge-icon { font-size: 0.72rem; line-height: 1; }
+
+.badge-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+}
+
+.codex-card[data-classification="person"]     .card-badge { color: #D99145; }
+.codex-card[data-classification="place"]      .card-badge { color: #A8612F; }
+.codex-card[data-classification="philosophy"] .card-badge { color: #C8A35F; }
+.codex-card[data-classification="rank"]       .card-badge { color: #D87B34; }
+.codex-card[data-classification="artifact"]   .card-badge { color: #E2C07D; }
+.codex-card[data-classification="event"]      .card-badge { color: #C66A35; }
+
+.card-chevron {
+  font-size: 1.2rem;
+  color: rgba(255, 140, 40, 0.4);
+  transition: transform 0.3s ease, color 0.3s;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.codex-card.is-open .card-chevron {
+  transform: rotate(90deg);
+  color: rgba(255, 140, 40, 0.9);
+}
+
+.card-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    max-height 0.4s ease-out,
+    opacity 0.35s ease-out,
+    transform 0.35s ease-out,
+    padding 0.3s ease-out,
+    border-color 0.3s;
+  padding: 0 1.4rem;
+  border-top: 1px solid transparent;
+}
+
+.codex-card.is-open .card-body {
+  opacity: 1;
+  transform: translateY(0);
+  padding: 1rem 1.4rem 1.25rem;
+  border-top-color: rgba(255, 120, 40, 0.12);
+}
+
+.card-tagline {
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  color: #ffb366;
+  font-style: italic;
+  margin-bottom: 0.65rem;
+  line-height: 1.65;
+}
+
+.card-def {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.95rem;
+  color: #d4c4a8;
+  line-height: 1.8;
+  margin-bottom: 0.4rem;
+}
+
+.card-fragment {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  color: var(--ash);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.2rem;
+}
+
+.card-motto {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.9rem;
+  color: var(--ember-hot);
+  margin-top: 0.65rem;
+}
+
+/* ── Stone Tablet ── */
+
+.codex-tablet {
+  position: relative;
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 2.5rem 3rem;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 185, 75, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(201, 74, 26, 0.06) 0%, transparent 50%),
+    linear-gradient(155deg, #1a1510 0%, #0e0c09 45%, #121008 60%, #1a1510 100%);
+  border: 1px solid rgba(201, 74, 26, 0.3);
+  border-radius: 4px;
+  box-shadow:
+    0 0 40px rgba(201, 74, 26, 0.12),
+    0 0 80px rgba(255, 100, 20, 0.05),
+    inset 0 0 60px rgba(0, 0, 0, 0.55);
+  text-align: center;
+  overflow: hidden;
+}
+
+.tablet-flicker {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(255, 100, 20, 0.1) 0%, transparent 65%);
+  animation: tablet-flicker 4.5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes tablet-flicker {
+  0%   { opacity: 0.55; }
+  28%  { opacity: 1.00; }
+  55%  { opacity: 0.65; }
+  100% { opacity: 0.85; }
+}
+
+.tablet-quote p {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.82rem, 1.4vw, 0.96rem);
+  color: #d4b87a;
+  line-height: 2.3;
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 6px rgba(255, 140, 40, 0.3),
+    0 1px 3px rgba(0, 0, 0, 0.9);
+  margin: 0;
+}
+
+.tablet-quote cite {
+  display: block;
+  margin-top: 1.5rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  color: var(--ash);
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .codex-grid { grid-template-columns: 1fr; }
+  .codex-tablet { padding: 2rem 1.5rem; }
 }
 
