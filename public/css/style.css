@@ -1628,8 +1628,8 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  background: rgba(0,0,0,0.97);
+  padding: 1.25rem;
+  background: rgba(0,0,0,0.96);
   opacity: 0;
   pointer-events: none;
   transition: opacity 1.2s ease;
@@ -1645,181 +1645,309 @@ main {
   pointer-events: none;
 }
 
-/* Ember glow at bottom center */
+/* Ambient ember glow behind the tablet */
 .oath-ember-bg {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(201,74,26,0.14) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 25% at 50% 100%, rgba(230,120,40,0.08) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 45% at 50% 105%, rgba(201,74,26,0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 30% at 50% 105%, rgba(255,130,40,0.1) 0%, transparent 55%);
 }
 
-.oath-container {
+/* ── Stone Tablet ── */
+.oath-tablet {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 680px;
-  max-height: 88vh;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(201,74,26,0.3) transparent;
-  padding: 2.5rem 2rem 2rem;
-  border: 1px solid rgba(201,74,26,0.18);
+  max-width: 700px;
+  max-height: 90vh;
+
+  /* Stone texture — layered gradients simulate grain and depth variation */
   background:
-    linear-gradient(180deg, rgba(8,5,3,0.98) 0%, rgba(12,8,4,0.99) 100%);
+    radial-gradient(ellipse 55% 40% at 22% 18%, rgba(65,55,42,0.45) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 60% at 78% 65%, rgba(28,22,16,0.55) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 35% at 50% 88%, rgba(38,30,22,0.35) 0%, transparent 60%),
+    linear-gradient(162deg, #282218 0%, #1c1810 28%, #221e15 55%, #1a1610 80%, #201c13 100%);
+
+  /* Chiseled stone border — top/left slightly lighter (ambient light), right/bottom darker (shadow) */
+  border-style: solid;
+  border-width: 10px 12px 14px 10px;
+  border-color: #3a3228 #2c2418 #221a10 #342c20;
+
+  /* Slightly irregular corners — no two the same, like chipped stone */
+  border-radius: 3px 6px 4px 5px / 5px 3px 6px 4px;
+
+  /* Depth: outer drop, inner bevel light top-left, inner bevel dark bottom-right, ember cast */
   box-shadow:
-    0 0 60px rgba(201,74,26,0.08),
-    inset 0 0 40px rgba(0,0,0,0.6);
+    0 24px 70px rgba(0,0,0,0.85),
+    0 8px 22px rgba(0,0,0,0.65),
+    inset 4px 4px 14px rgba(90,72,50,0.22),
+    inset -4px -4px 14px rgba(0,0,0,0.55),
+    0 0 80px rgba(201,74,26,0.1),
+    0 -6px 30px rgba(201,74,26,0.06);
 }
 
-.oath-container::-webkit-scrollbar { width: 4px; }
-.oath-container::-webkit-scrollbar-track { background: transparent; }
-.oath-container::-webkit-scrollbar-thumb { background: rgba(201,74,26,0.3); border-radius: 2px; }
-
-/* Header */
-.oath-header {
-  text-align: center;
-  margin-bottom: 2rem;
+/* Inner scroll area — keeps border styling on the outer tablet */
+.tablet-scroll-area {
+  max-height: calc(90vh - 28px);
+  overflow-y: auto;
+  padding: 2.4rem 2.2rem 2rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100,80,55,0.4) transparent;
 }
 
-.oath-title {
+.tablet-scroll-area::-webkit-scrollbar { width: 4px; }
+.tablet-scroll-area::-webkit-scrollbar-track { background: transparent; }
+.tablet-scroll-area::-webkit-scrollbar-thumb { background: rgba(100,80,55,0.4); border-radius: 2px; }
+
+/* Carved title */
+.tablet-title {
   font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-size: clamp(1.3rem, 3.5vw, 2rem);
   font-weight: 900;
-  letter-spacing: 0.12em;
-  color: #e8c87a;
+  letter-spacing: 0.14em;
+  text-align: center;
+  color: rgba(190,165,115,0.92);
+  /* Chiseled inset effect: dark shadow top-right, faint light bottom-left */
   text-shadow:
-    0 0 18px rgba(201,74,26,0.7),
-    0 0 36px rgba(201,74,26,0.35),
-    0 0 70px rgba(201,74,26,0.18);
-  margin-bottom: 1.2rem;
+    1px 1px 2px rgba(0,0,0,0.95),
+    2px 2px 4px rgba(0,0,0,0.7),
+    -1px -1px 0px rgba(220,195,145,0.12);
+  margin: 0 0 1.2rem;
 }
 
-.oath-flame {
-  margin: 0 auto;
-  max-width: 300px;
+/* Engraved horizontal rule */
+.tablet-rule {
+  height: 1px;
+  margin: 0.8rem 0 1.4rem;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(90,72,50,0.25) 8%,
+    rgba(110,88,60,0.55) 30%,
+    rgba(125,100,68,0.65) 50%,
+    rgba(110,88,60,0.55) 70%,
+    rgba(90,72,50,0.25) 92%,
+    transparent 100%
+  );
+  /* Engraved look: dark line + faint highlight just below */
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.55),
+    0 2px 0 rgba(0,0,0,0.25);
 }
 
-/* Body text */
-.oath-body {
-  margin: 0 0 2rem;
-}
+/* Oath body text */
+.tablet-oath-body { margin: 0 0 1.2rem; }
 
 .oath-para {
   font-family: 'Crimson Text', serif;
-  font-size: clamp(1rem, 2vw, 1.15rem);
-  line-height: 1.85;
-  color: rgba(232,210,160,0.82);
-  margin: 0 0 1.4rem;
+  font-size: clamp(1rem, 1.9vw, 1.12rem);
+  line-height: 1.88;
+  color: rgba(205,182,140,0.8);
+  margin: 0 0 1.2rem;
   text-align: left;
 }
 
-/* "And still, I did not yield." */
 .oath-defiance {
   font-family: 'Cinzel', serif;
-  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
   font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #e8c87a;
+  letter-spacing: 0.09em;
+  color: rgba(210,175,100,0.92);
   text-align: center;
-  margin: 1.8rem 0;
-  text-shadow: 0 0 14px rgba(201,74,26,0.5);
+  margin: 1.6rem 0;
+  text-shadow:
+    1px 1px 2px rgba(0,0,0,0.9),
+    0 0 18px rgba(201,74,26,0.35);
 }
 
-/* Shadow list */
 .oath-shadows {
   list-style: none;
-  padding: 0;
-  margin: 0 0 1.4rem;
-  border-left: 2px solid rgba(201,74,26,0.25);
-  padding-left: 1.4rem;
+  padding: 0 0 0 1.2rem;
+  margin: 0 0 1.2rem;
+  border-left: 2px solid rgba(80,60,110,0.35);
 }
 
 .oath-shadows li {
   font-family: 'Crimson Text', serif;
   font-style: italic;
-  font-size: clamp(0.95rem, 1.8vw, 1.08rem);
-  line-height: 1.9;
-  color: rgba(180,160,210,0.75);
-  padding: 0.1rem 0;
+  font-size: clamp(0.93rem, 1.7vw, 1.05rem);
+  line-height: 1.95;
+  color: rgba(165,148,198,0.72);
 }
 
-/* "Let the Bonfire witness..." */
 .oath-witness {
   font-family: 'Cinzel', serif;
-  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  font-size: clamp(0.9rem, 1.7vw, 1rem);
   font-weight: 600;
-  letter-spacing: 0.05em;
-  color: rgba(232,210,160,0.7);
+  letter-spacing: 0.06em;
+  color: rgba(190,165,115,0.7);
   text-align: center;
-  line-height: 2;
-  margin: 1.8rem 0 0;
-}
-
-/* Footer */
-.oath-footer {
-  text-align: center;
-  padding-top: 0.5rem;
+  line-height: 2.1;
+  margin: 1.6rem 0 1rem;
 }
 
 .oath-creed {
   font-family: 'Cinzel Decorative', serif;
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-size: clamp(1rem, 2.6vw, 1.45rem);
   font-weight: 900;
   letter-spacing: 0.1em;
-  color: #e8c87a;
-  margin: 1.5rem 0 2rem;
+  color: rgba(210,175,100,0.95);
+  text-align: center;
+  margin: 1rem 0 0.4rem;
   text-shadow:
-    0 0 16px rgba(201,74,26,0.9),
-    0 0 40px rgba(201,74,26,0.5),
-    0 0 80px rgba(201,74,26,0.25);
+    1px 1px 2px rgba(0,0,0,0.9),
+    0 0 20px rgba(201,74,26,0.6),
+    0 0 50px rgba(201,74,26,0.3);
   animation: oathPulse 3s ease-in-out infinite;
 }
 
 @keyframes oathPulse {
-  0%, 100% { text-shadow: 0 0 16px rgba(201,74,26,0.9), 0 0 40px rgba(201,74,26,0.5), 0 0 80px rgba(201,74,26,0.25); }
-  50%       { text-shadow: 0 0 24px rgba(201,74,26,1),   0 0 60px rgba(201,74,26,0.7), 0 0 110px rgba(201,74,26,0.35); }
+  0%, 100% { text-shadow: 1px 1px 2px rgba(0,0,0,0.9), 0 0 20px rgba(201,74,26,0.6), 0 0 50px rgba(201,74,26,0.3); }
+  50%       { text-shadow: 1px 1px 2px rgba(0,0,0,0.9), 0 0 30px rgba(201,74,26,0.9), 0 0 75px rgba(201,74,26,0.45); }
 }
 
-.oath-swear-btn {
-  display: inline-block;
+/* Disclaimer panel — inset carved recess */
+.tablet-disclaimer {
+  margin: 1.4rem 0 1.6rem;
+  padding: 1rem 1.2rem;
+  background:
+    linear-gradient(135deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.2) 100%);
+  border: 1px solid rgba(75,60,42,0.4);
+  border-left: 3px solid rgba(175,60,30,0.45);
+  box-shadow:
+    inset 2px 2px 8px rgba(0,0,0,0.45),
+    inset -1px -1px 4px rgba(0,0,0,0.25);
+}
+
+.disclaimer-heading {
   font-family: 'Cinzel', serif;
-  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #e8c87a;
-  background: transparent;
-  border: 1px solid rgba(201,74,26,0.55);
-  padding: 0.85rem 2.5rem;
+  color: rgba(195,135,80,0.85);
+  margin: 0 0 0.55rem;
+}
+
+.disclaimer-body {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(0.88rem, 1.6vw, 0.98rem);
+  line-height: 1.75;
+  color: rgba(185,165,130,0.7);
+  margin: 0;
+}
+
+.disclaimer-body strong {
+  color: rgba(205,175,110,0.85);
+  font-weight: 700;
+}
+
+/* Oath action — checkbox + enter button */
+.tablet-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 0.4rem 0 0.8rem;
+}
+
+.oath-check-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
   cursor: pointer;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
-  box-shadow: 0 0 16px rgba(201,74,26,0.1);
+  max-width: 480px;
+  text-align: left;
 }
 
-.oath-swear-btn:hover {
-  background: rgba(201,74,26,0.12);
-  border-color: rgba(201,74,26,0.9);
-  box-shadow: 0 0 28px rgba(201,74,26,0.35);
-  color: #f0d890;
+.oath-checkbox { display: none; }
+
+.oath-check-custom {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  border: 2px solid rgba(100,82,58,0.65);
+  background:
+    inset 2px 2px 6px rgba(0,0,0,0.7),
+    linear-gradient(135deg, rgba(10,8,5,0.9) 0%, rgba(18,14,8,0.95) 100%);
+  box-shadow: inset 1px 1px 5px rgba(0,0,0,0.7);
+  position: relative;
+  transition: border-color 0.25s, box-shadow 0.25s;
 }
 
-.oath-swear-btn:active {
-  background: rgba(201,74,26,0.22);
+.oath-checkbox:checked + .oath-check-custom {
+  border-color: rgba(201,74,26,0.8);
+  box-shadow: inset 1px 1px 5px rgba(0,0,0,0.7), 0 0 10px rgba(201,74,26,0.35);
 }
 
-/* Mobile adjustments */
+.oath-checkbox:checked + .oath-check-custom::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 11px;
+  border-right: 2px solid rgba(220,120,50,0.95);
+  border-bottom: 2px solid rgba(220,120,50,0.95);
+  transform: rotate(45deg);
+}
+
+.oath-check-text {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.78rem, 1.5vw, 0.88rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(185,162,118,0.8);
+  line-height: 1.6;
+  user-select: none;
+}
+
+.oath-enter-btn {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(120,100,70,0.45);
+  background: transparent;
+  border: 1px solid rgba(70,56,38,0.35);
+  padding: 0.8rem 3.2rem;
+  cursor: not-allowed;
+  transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+}
+
+.oath-enter-btn:not([disabled]) {
+  color: rgba(220,185,110,0.95);
+  border-color: rgba(201,74,26,0.55);
+  cursor: pointer;
+  box-shadow: 0 0 18px rgba(201,74,26,0.12);
+}
+
+.oath-enter-btn:not([disabled]):hover {
+  background: rgba(201,74,26,0.1);
+  border-color: rgba(201,74,26,0.85);
+  box-shadow: 0 0 32px rgba(201,74,26,0.32);
+}
+
+.oath-enter-btn:not([disabled]):active {
+  background: rgba(201,74,26,0.2);
+}
+
+/* Mobile */
 @media (max-width: 600px) {
-  .oath-container {
-    padding: 1.75rem 1.25rem 1.75rem;
-    max-height: 92vh;
+  .oath-tablet {
+    border-width: 8px 9px 11px 8px;
+  }
+
+  .tablet-scroll-area {
+    padding: 1.8rem 1.2rem 1.6rem;
+    max-height: calc(92vh - 20px);
   }
 
   .oath-shadows {
-    padding-left: 1rem;
+    padding-left: 0.9rem;
   }
 }
 
