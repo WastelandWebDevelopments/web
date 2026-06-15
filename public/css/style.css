@@ -1071,12 +1071,76 @@ main {
   border: 1px solid currentColor;
 }
 
-.codex-card[data-classification="person"]     .card-badge { color: #D99145; }
-.codex-card[data-classification="place"]      .card-badge { color: #A8612F; }
-.codex-card[data-classification="philosophy"] .card-badge { color: #C8A35F; }
-.codex-card[data-classification="rank"]       .card-badge { color: #D87B34; }
-.codex-card[data-classification="artifact"]   .card-badge { color: #E2C07D; }
-.codex-card[data-classification="event"]      .card-badge { color: #C66A35; }
+/* Gold = Philosophy | Orange = Fire/Places | Red-orange = Adversaries | Steel = Ranks */
+.codex-card[data-classification="person"]     .card-badge { color: #D4843A; }
+.codex-card[data-classification="place"]      .card-badge { color: #D46E22; }
+.codex-card[data-classification="philosophy"] .card-badge { color: #C9A827; }
+.codex-card[data-classification="rank"]       .card-badge { color: #8A9BA8; }
+.codex-card[data-classification="artifact"]   .card-badge { color: #C8A050; }
+.codex-card[data-classification="event"]      .card-badge { color: #CF6A28; }
+/* Shadow tier badge colors */
+.codex-card[data-classification="primordial"]    .card-badge { color: #8A52C8; }
+.codex-card[data-classification="shade"]         .card-badge { color: #6478A8; }
+.codex-card[data-classification="consuming"]     .card-badge { color: #A83848; }
+.codex-card[data-classification="umbral-warden"] .card-badge { color: #8858A0; }
+.codex-card[data-classification="void-lord"]     .card-badge { color: #4868C0; }
+.codex-card[data-classification="the-bound"]     .card-badge { color: #6A7888; }
+.codex-card[data-classification="specter"]       .card-badge { color: #8090A8; }
+.codex-card[data-classification="pale-revenant"] .card-badge { color: #5878A8; }
+.codex-card[data-classification="phantom"]       .card-badge { color: #7058A8; }
+
+/* Shared shadow card styling */
+.codex-card.is-shadow {
+  border-color: rgba(80, 60, 120, 0.3);
+  box-shadow: 0 0 20px rgba(60, 40, 100, 0.1);
+  background: rgba(10, 8, 16, 0.97);
+}
+
+.codex-card.is-shadow:hover {
+  border-color: rgba(120, 80, 180, 0.5);
+  box-shadow: 0 0 28px rgba(80, 50, 140, 0.2);
+  background: rgba(14, 10, 22, 0.99);
+}
+
+.codex-adversary-header {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 0 2rem;
+}
+
+.adv-rule {
+  width: 50%;
+  height: 1px;
+  margin: 0.75rem auto;
+  background: linear-gradient(90deg, transparent, rgba(196, 58, 26, 0.65), transparent);
+  box-shadow: 0 0 8px rgba(196, 58, 26, 0.35);
+}
+
+.adv-title {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: #e08060;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(196, 58, 26, 0.55), 0 0 28px rgba(196, 58, 26, 0.25);
+  margin-bottom: 0.4rem;
+}
+
+.adv-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(196, 58, 26, 0.75);
+  margin-bottom: 0.75rem;
+}
+
+.adv-note {
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ash);
+}
 
 .card-chevron {
   font-size: 1.2rem;
@@ -1207,6 +1271,131 @@ main {
 @media (max-width: 768px) {
   .codex-grid { grid-template-columns: 1fr; }
   .codex-tablet { padding: 2rem 1.5rem; }
+}
+
+/* ── The Chronicle ────────────────────────────────────────────────────────── */
+
+.chronicle-section { background: #070707; }
+
+.chronicle-subtitle {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  color: var(--ash);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.chronicle-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.cf-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ash);
+  background: none;
+  border: 1px solid rgba(154, 128, 112, 0.25);
+  border-radius: 2px;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.cf-btn:hover,
+.cf-btn.active {
+  color: var(--ember-hot);
+  border-color: var(--ember);
+  background: rgba(201, 74, 26, 0.06);
+}
+
+.chronicle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.chronicle-card {
+  background: rgba(12, 10, 8, 0.95);
+  border: 1px solid rgba(201, 74, 26, 0.15);
+  border-radius: 4px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.chronicle-card:hover {
+  border-color: rgba(201, 74, 26, 0.4);
+  box-shadow: 0 0 24px rgba(201, 74, 26, 0.1);
+}
+
+.chronicle-card.hidden { display: none; }
+
+.chronicle-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.chronicle-type {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 2px;
+  border: 1px solid currentColor;
+}
+
+.chronicle-type.decree       { color: #D99145; }
+.chronicle-type.dispatch     { color: #A8C87A; }
+.chronicle-type.remembrance  { color: #9B6B9B; }
+.chronicle-type.flame-record { color: var(--ember-hot); }
+
+.chronicle-date {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.82rem;
+  color: rgba(154, 128, 112, 0.6);
+  font-style: italic;
+}
+
+.chronicle-title {
+  font-family: 'IM Fell English SC', serif;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: #F4D4A4;
+  line-height: 1.35;
+  text-shadow: 0 0 8px rgba(255, 140, 40, 0.2);
+}
+
+.chronicle-excerpt {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.98rem;
+  color: #c4b49a;
+  line-height: 1.8;
+  flex: 1;
+}
+
+.chronicle-read {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ember);
+  transition: color 0.2s;
+  align-self: flex-start;
+}
+
+.chronicle-card:hover .chronicle-read { color: var(--ember-hot); }
+
+@media (max-width: 600px) {
+  .chronicle-grid { grid-template-columns: 1fr; }
 }
 
 /* ── Lore Timeline ────────────────────────────────────────────────────────── */

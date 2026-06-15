@@ -165,6 +165,28 @@ if (missionWrapper) {
   }, { threshold: 0.25 }).observe(missionWrapper);
 }
 
+// ── Chronicle filter ──────────────────────────────────────────────────────
+
+function applyChronicleFilter(filter) {
+  document.querySelectorAll('.chronicle-card').forEach(card => {
+    card.classList.toggle('hidden', filter !== 'all' && card.dataset.type !== filter);
+  });
+  document.querySelectorAll('.cf-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === filter);
+  });
+}
+
+document.querySelectorAll('.cf-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyChronicleFilter(btn.dataset.filter));
+});
+
+// Chronicle nav dropdown links set the filter then scroll to section
+document.querySelectorAll('.dropdown a[data-filter]').forEach(link => {
+  link.addEventListener('click', () => {
+    applyChronicleFilter(link.dataset.filter);
+  });
+});
+
 // ── Ember Codex cards ─────────────────────────────────────────────────────
 
 document.querySelectorAll('.codex-card .card-toggle').forEach(btn => {
