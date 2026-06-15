@@ -26,7 +26,7 @@ body {
 #sparks {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 50;
   pointer-events: none;
 }
 
@@ -76,7 +76,7 @@ main {
 
 .flame-divider {
   width: 55%;
-  height: 1px;
+  height: 2px;
   background: linear-gradient(
     90deg,
     transparent 0%,
@@ -110,7 +110,9 @@ main {
   font-size: clamp(1.5rem, 3.75vw, 2.1rem);
   letter-spacing: 0.05em;
   color: var(--ash);
-  text-shadow: 0 0 12px rgba(201, 74, 26, 0.4);
+  text-shadow:
+    0 0 10px rgba(255, 130, 20, 0.45),
+    0 0 25px rgba(200, 65, 10, 0.25);
 }
 
 /* ── Navigation ── */
@@ -153,18 +155,64 @@ main {
   height: 100%;
   padding: 0 1.1rem;
   font-family: 'IM Fell English SC', serif;
-  font-size: 0.82rem;
+  font-size: 1.44rem;
   letter-spacing: 0.08em;
-  color: var(--ash);
+  color: #fff9f2;
   text-decoration: none;
-  transition: color 0.2s, text-shadow 0.2s;
   white-space: nowrap;
+  text-shadow:
+    0 0 2px #ffffff,
+    0 0 8px rgba(255, 230, 100, 0.95),
+    0 0 16px rgba(255, 155, 20, 0.9),
+    0 0 30px rgba(230, 85, 10, 0.7),
+    0 0 55px rgba(180, 40, 5, 0.45);
+  animation: brand-heat 3.5s ease-in-out infinite alternate;
 }
 
 .nav-item > a:hover,
 .nav-item:hover > a {
-  color: var(--bone);
-  text-shadow: 0 0 10px rgba(255, 140, 0, 0.65);
+  color: #ffffff;
+  text-shadow:
+    0 0 3px #ffffff,
+    0 0 12px rgba(255, 245, 150, 1.0),
+    0 0 24px rgba(255, 180, 30, 1.0),
+    0 0 45px rgba(240, 100, 10, 0.85),
+    0 0 80px rgba(200, 50, 5, 0.6);
+}
+
+@keyframes brand-heat {
+  0%   {
+    text-shadow:
+      0 0 2px #fff,
+      0 0 8px  rgba(255,230,100,0.95),
+      0 0 16px rgba(255,155, 20,0.90),
+      0 0 30px rgba(230, 85, 10,0.70),
+      0 0 55px rgba(180, 40,  5,0.45);
+  }
+  35%  {
+    text-shadow:
+      0 0 2px #fff,
+      0 0 5px  rgba(255,210, 80,0.80),
+      0 0 11px rgba(255,130, 15,0.75),
+      0 0 22px rgba(210, 70,  8,0.55),
+      0 0 42px rgba(160, 35,  4,0.35);
+  }
+  70%  {
+    text-shadow:
+      0 0 3px #fff,
+      0 0 10px rgba(255,245,130,1.00),
+      0 0 20px rgba(255,175, 25,0.95),
+      0 0 38px rgba(240, 95, 12,0.75),
+      0 0 68px rgba(195, 48,  6,0.50);
+  }
+  100% {
+    text-shadow:
+      0 0 2px #fff,
+      0 0 7px  rgba(255,220, 90,0.88),
+      0 0 14px rgba(255,145, 18,0.84),
+      0 0 26px rgba(220, 78,  9,0.63),
+      0 0 50px rgba(170, 38,  5,0.40);
+  }
 }
 
 .dropdown {
@@ -193,19 +241,29 @@ main {
   display: block;
   padding: 0.65rem 1.3rem;
   font-family: 'Cinzel', serif;
-  font-size: 0.72rem;
+  font-size: 1.26rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ash);
+  color: #fff4e8;
   text-decoration: none;
   border-left: 2px solid transparent;
   transition: color 0.15s, background 0.15s, border-color 0.15s;
+  text-shadow:
+    0 0 2px #fff,
+    0 0 6px rgba(255, 200, 80, 0.8),
+    0 0 12px rgba(255, 130, 20, 0.65),
+    0 0 22px rgba(220, 70, 8, 0.45);
 }
 
 .dropdown li a:hover {
-  color: var(--ember-hot);
+  color: #ffffff;
   background: rgba(201, 74, 26, 0.07);
   border-left-color: var(--ember);
+  text-shadow:
+    0 0 3px #ffffff,
+    0 0 10px rgba(255, 240, 120, 1.0),
+    0 0 20px rgba(255, 165, 25, 0.95),
+    0 0 38px rgba(235, 90, 10, 0.75);
 }
 
 .nav-cta {
@@ -219,7 +277,7 @@ main {
 .btn-cta {
   padding: 0.45rem 1.1rem;
   font-family: 'Cinzel', serif;
-  font-size: 0.72rem;
+  font-size: 1.26rem;
   letter-spacing: 0.1em;
   text-decoration: none;
   border: 1px solid;
@@ -251,20 +309,130 @@ main {
 }
 
 .nav-divider {
-  height: 1px;
+  height: 2px;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--ember) 15%,
+    var(--ember) 10%,
     var(--ember-hot) 35%,
     #ffdd88 50%,
     var(--ember-hot) 65%,
-    var(--ember) 85%,
+    var(--ember) 90%,
     transparent 100%
   );
   box-shadow:
     0 0 6px var(--ember-hot),
     0 0 18px rgba(255, 140, 0, 0.5);
   animation: ember-pulse 2.5s ease-in-out infinite alternate;
+}
+
+/* ── Hamburger button ─────────────────────────────────────────────────────── */
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  flex-shrink: 0;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--ember-hot);
+  box-shadow: 0 0 6px rgba(255, 140, 0, 0.7);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-toggle.is-open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ── Mobile responsive ────────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .nav-toggle { display: flex; }
+
+  .nav-inner {
+    flex-wrap: wrap;
+    padding: 0 1.25rem;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.5rem 0 0.75rem;
+    border-top: 1px solid rgba(201, 74, 26, 0.2);
+    margin-top: 0.25rem;
+  }
+
+  .nav-links.is-open { display: flex; }
+
+  .nav-item {
+    height: auto;
+  }
+
+  .nav-item > a {
+    height: auto;
+    padding: 0.85rem 0.5rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(201, 74, 26, 0.1);
+  }
+
+  .dropdown {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    border: none;
+    border-left: 2px solid var(--ember);
+    border-top: none;
+    box-shadow: none;
+    background: rgba(12, 6, 2, 0.98);
+    min-width: unset;
+    display: none;
+    margin-left: 1rem;
+  }
+
+  .nav-item.is-open .dropdown { display: block; }
+
+  .dropdown li a {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .nav-cta {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+    padding: 0.75rem 0.5rem 1rem;
+  }
+
+  .nav-cta.is-open { display: flex; }
+
+  .btn-cta {
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .hero {
+    padding-top: calc(60px + 3rem);
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .flame-divider { width: 80%; }
+}
+
+@media (max-width: 480px) {
+  .site-title { font-size: clamp(2rem, 11vw, 3.5rem); }
+  .tagline    { font-size: clamp(1.1rem, 5vw, 1.5rem); }
+  .flame-divider { width: 90%; }
 }
 
