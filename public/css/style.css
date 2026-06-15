@@ -53,7 +53,7 @@ main {
 }
 
 .site-title {
-  font-family: 'Almendra Display', serif;
+  font-family: 'IM Fell English SC', serif;
   font-size: clamp(2.8rem, 8vw, 6.5rem);
   font-weight: 900;
   letter-spacing: 0.05em;
