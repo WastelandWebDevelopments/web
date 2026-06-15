@@ -1660,39 +1660,80 @@ main {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 700px;
-  max-height: 90vh;
+  max-width: 500px;
 
-  /* Stone texture — layered gradients simulate grain and depth variation */
+  /*
+   * True tablet arch: 50% horizontal radii on both top corners sum to 100%
+   * of the element width, so the two quarter-ellipses meet exactly at the
+   * top center — forming a single arch peak. Vertical descent of 100px.
+   * Bottom corners stay square.
+   */
+  border-radius: 50% 50% 5px 5px / 100px 100px 5px 5px;
+
+  /* overflow:hidden clips child content to the arch silhouette */
+  overflow: hidden;
+
+  /* Stone base: warm dark limestone with depth variation */
   background:
-    radial-gradient(ellipse 55% 40% at 22% 18%, rgba(65,55,42,0.45) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 60% at 78% 65%, rgba(28,22,16,0.55) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 35% at 50% 88%, rgba(38,30,22,0.35) 0%, transparent 60%),
-    linear-gradient(162deg, #282218 0%, #1c1810 28%, #221e15 55%, #1a1610 80%, #201c13 100%);
+    radial-gradient(ellipse 55% 35% at 24% 18%, rgba(72,60,44,0.52) 0%, transparent 55%),
+    radial-gradient(ellipse 42% 55% at 80% 68%, rgba(22,16,10,0.62) 0%, transparent 55%),
+    radial-gradient(ellipse 65% 28% at 50% 92%, rgba(38,30,20,0.42) 0%, transparent 60%),
+    linear-gradient(170deg, #2c2214 0%, #1e180e 28%, #261e16 55%, #1c1610 80%, #221c12 100%);
 
-  /* Chiseled stone border — top/left slightly lighter (ambient light), right/bottom darker (shadow) */
+  /* Border: thicker at bottom for visual weight; arch peak lighter (catches light) */
   border-style: solid;
-  border-width: 10px 12px 14px 10px;
-  border-color: #3a3228 #2c2418 #221a10 #342c20;
+  border-width: 14px 13px 22px 13px;
+  border-top-color: #4e4230;
+  border-left-color: #3c3022;
+  border-right-color: #30261a;
+  border-bottom-color: #1c1608;
 
-  /* Slightly irregular corners — no two the same, like chipped stone */
-  border-radius: 3px 6px 4px 5px / 5px 3px 6px 4px;
-
-  /* Depth: outer drop, inner bevel light top-left, inner bevel dark bottom-right, ember cast */
+  /* Physical depth: outer drop shadow + inner stone bevel + ember cast from below */
   box-shadow:
-    0 24px 70px rgba(0,0,0,0.85),
-    0 8px 22px rgba(0,0,0,0.65),
-    inset 4px 4px 14px rgba(90,72,50,0.22),
-    inset -4px -4px 14px rgba(0,0,0,0.55),
-    0 0 80px rgba(201,74,26,0.1),
-    0 -6px 30px rgba(201,74,26,0.06);
+    0 30px 85px rgba(0,0,0,0.92),
+    0 10px 28px rgba(0,0,0,0.72),
+    inset 5px 5px 20px rgba(95,76,52,0.22),
+    inset -5px -5px 20px rgba(0,0,0,0.62),
+    0 0 90px rgba(201,74,26,0.13),
+    0 -5px 28px rgba(201,74,26,0.08);
 }
 
-/* Inner scroll area — keeps border styling on the outer tablet */
+/* Small carved circle at the arch peak — decorative keystone mark */
+.oath-tablet::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(88,70,48,0.35);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.6), 0 0 6px rgba(201,74,26,0.08);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Carved inner frame — etched border just inside the stone edge */
+.oath-tablet::after {
+  content: '';
+  position: absolute;
+  top: 112px;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  border: 1px solid rgba(84,68,46,0.2);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scroll area — large top padding clears the 100px arch + keystone mark */
 .tablet-scroll-area {
-  max-height: calc(90vh - 28px);
+  position: relative;
+  z-index: 1;
+  max-height: calc(88vh - 36px);
   overflow-y: auto;
-  padding: 2.4rem 2.2rem 2rem;
+  padding: 7rem 2.4rem 2.2rem;
   scrollbar-width: thin;
   scrollbar-color: rgba(100,80,55,0.4) transparent;
 }
@@ -1936,14 +1977,28 @@ main {
 }
 
 /* Mobile */
-@media (max-width: 600px) {
+@media (max-width: 560px) {
   .oath-tablet {
-    border-width: 8px 9px 11px 8px;
+    border-width: 10px 10px 16px 10px;
+    /* Shallower arch on small screens so less vertical space is eaten */
+    border-radius: 50% 50% 5px 5px / 70px 70px 5px 5px;
+  }
+
+  .oath-tablet::before {
+    top: 16px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .oath-tablet::after {
+    top: 82px;
+    left: 12px;
+    right: 12px;
   }
 
   .tablet-scroll-area {
-    padding: 1.8rem 1.2rem 1.6rem;
-    max-height: calc(92vh - 20px);
+    padding: 5rem 1.25rem 1.75rem;
+    max-height: calc(90vh - 26px);
   }
 
   .oath-shadows {
