@@ -259,17 +259,11 @@ document.querySelectorAll('.dropdown li a').forEach(link => {
 // ── Oath of the Hollow ─────────────────────────────────────────────────────
 
 (function () {
-  const OATH_KEY  = 'loe-oath-taken';
-  const overlay   = document.getElementById('oath-overlay');
-  const checkbox  = document.getElementById('oath-checkbox');
-  const enterBtn  = document.getElementById('oath-enter');
+  const overlay  = document.getElementById('oath-overlay');
+  const checkbox = document.getElementById('oath-checkbox');
+  const enterBtn = document.getElementById('oath-enter');
 
   if (!overlay || !checkbox || !enterBtn) return;
-
-  if (localStorage.getItem(OATH_KEY)) {
-    overlay.remove();
-    return;
-  }
 
   setTimeout(() => overlay.classList.add('visible'), 1800);
 
@@ -285,7 +279,6 @@ document.querySelectorAll('.dropdown li a').forEach(link => {
     if (enterBtn.hasAttribute('disabled')) return;
     overlay.classList.remove('visible');
     overlay.classList.add('dismissed');
-    localStorage.setItem(OATH_KEY, '1');
     setTimeout(() => overlay.remove(), 1400);
   });
 })();
