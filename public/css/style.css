@@ -1619,3 +1619,207 @@ main {
   .timeline-card.below::before { display: none; }
 }
 
+/* ── Oath of the Hollow ──────────────────────────────────────────────────── */
+
+.oath-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(0,0,0,0.97);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+.oath-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.oath-overlay.dismissed {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Ember glow at bottom center */
+.oath-ember-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(201,74,26,0.14) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 25% at 50% 100%, rgba(230,120,40,0.08) 0%, transparent 60%);
+}
+
+.oath-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 680px;
+  max-height: 88vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,74,26,0.3) transparent;
+  padding: 2.5rem 2rem 2rem;
+  border: 1px solid rgba(201,74,26,0.18);
+  background:
+    linear-gradient(180deg, rgba(8,5,3,0.98) 0%, rgba(12,8,4,0.99) 100%);
+  box-shadow:
+    0 0 60px rgba(201,74,26,0.08),
+    inset 0 0 40px rgba(0,0,0,0.6);
+}
+
+.oath-container::-webkit-scrollbar { width: 4px; }
+.oath-container::-webkit-scrollbar-track { background: transparent; }
+.oath-container::-webkit-scrollbar-thumb { background: rgba(201,74,26,0.3); border-radius: 2px; }
+
+/* Header */
+.oath-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.oath-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #e8c87a;
+  text-shadow:
+    0 0 18px rgba(201,74,26,0.7),
+    0 0 36px rgba(201,74,26,0.35),
+    0 0 70px rgba(201,74,26,0.18);
+  margin-bottom: 1.2rem;
+}
+
+.oath-flame {
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+/* Body text */
+.oath-body {
+  margin: 0 0 2rem;
+}
+
+.oath-para {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.85;
+  color: rgba(232,210,160,0.82);
+  margin: 0 0 1.4rem;
+  text-align: left;
+}
+
+/* "And still, I did not yield." */
+.oath-defiance {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #e8c87a;
+  text-align: center;
+  margin: 1.8rem 0;
+  text-shadow: 0 0 14px rgba(201,74,26,0.5);
+}
+
+/* Shadow list */
+.oath-shadows {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.4rem;
+  border-left: 2px solid rgba(201,74,26,0.25);
+  padding-left: 1.4rem;
+}
+
+.oath-shadows li {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.8vw, 1.08rem);
+  line-height: 1.9;
+  color: rgba(180,160,210,0.75);
+  padding: 0.1rem 0;
+}
+
+/* "Let the Bonfire witness..." */
+.oath-witness {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(232,210,160,0.7);
+  text-align: center;
+  line-height: 2;
+  margin: 1.8rem 0 0;
+}
+
+/* Footer */
+.oath-footer {
+  text-align: center;
+  padding-top: 0.5rem;
+}
+
+.oath-creed {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: #e8c87a;
+  margin: 1.5rem 0 2rem;
+  text-shadow:
+    0 0 16px rgba(201,74,26,0.9),
+    0 0 40px rgba(201,74,26,0.5),
+    0 0 80px rgba(201,74,26,0.25);
+  animation: oathPulse 3s ease-in-out infinite;
+}
+
+@keyframes oathPulse {
+  0%, 100% { text-shadow: 0 0 16px rgba(201,74,26,0.9), 0 0 40px rgba(201,74,26,0.5), 0 0 80px rgba(201,74,26,0.25); }
+  50%       { text-shadow: 0 0 24px rgba(201,74,26,1),   0 0 60px rgba(201,74,26,0.7), 0 0 110px rgba(201,74,26,0.35); }
+}
+
+.oath-swear-btn {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #e8c87a;
+  background: transparent;
+  border: 1px solid rgba(201,74,26,0.55);
+  padding: 0.85rem 2.5rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  box-shadow: 0 0 16px rgba(201,74,26,0.1);
+}
+
+.oath-swear-btn:hover {
+  background: rgba(201,74,26,0.12);
+  border-color: rgba(201,74,26,0.9);
+  box-shadow: 0 0 28px rgba(201,74,26,0.35);
+  color: #f0d890;
+}
+
+.oath-swear-btn:active {
+  background: rgba(201,74,26,0.22);
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .oath-container {
+    padding: 1.75rem 1.25rem 1.75rem;
+    max-height: 92vh;
+  }
+
+  .oath-shadows {
+    padding-left: 1rem;
+  }
+}
+

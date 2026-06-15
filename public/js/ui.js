@@ -255,3 +255,28 @@ document.querySelectorAll('.dropdown li a').forEach(link => {
     }
   });
 });
+
+// ── Oath of the Hollow ─────────────────────────────────────────────────────
+
+(function () {
+  const OATH_KEY = 'loe-oath-taken';
+  const overlay  = document.getElementById('oath-overlay');
+  const swearBtn = document.getElementById('oath-swear');
+
+  if (!overlay || !swearBtn) return;
+
+  if (localStorage.getItem(OATH_KEY)) {
+    overlay.remove();
+    return;
+  }
+
+  // Show after brief delay — let page render first
+  setTimeout(() => overlay.classList.add('visible'), 1800);
+
+  swearBtn.addEventListener('click', () => {
+    overlay.classList.remove('visible');
+    overlay.classList.add('dismissed');
+    localStorage.setItem(OATH_KEY, '1');
+    setTimeout(() => overlay.remove(), 1400);
+  });
+})();
