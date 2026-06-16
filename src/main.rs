@@ -20,6 +20,13 @@ async fn main() {
 
     println!("database connected");
 
+    sqlx::migrate!()
+        .run(&pool)
+        .await
+        .expect("failed to run migrations");
+
+    println!("migrations applied");
+
     let app = Router::new()
         .route("/healthz", get(|| async { StatusCode::OK }))
         .route("/api/contacts", post(contacts::create).get(contacts::list))
