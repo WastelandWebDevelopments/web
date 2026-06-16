@@ -1698,21 +1698,6 @@ main {
     0 -5px 28px rgba(201,74,26,0.08);
 }
 
-/* Small carved circle at the arch peak — decorative keystone mark */
-.oath-tablet::before {
-  content: '';
-  position: absolute;
-  top: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid rgba(88,70,48,0.35);
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.6), 0 0 6px rgba(201,74,26,0.08);
-  pointer-events: none;
-  z-index: 2;
-}
 
 /* Carved inner frame — etched border just inside the stone edge */
 .oath-tablet::after {
@@ -1982,12 +1967,6 @@ main {
     border-width: 10px 10px 16px 10px;
     /* Shallower arch on small screens so less vertical space is eaten */
     border-radius: 50% 50% 5px 5px / 70px 70px 5px 5px;
-  }
-
-  .oath-tablet::before {
-    top: 16px;
-    width: 28px;
-    height: 28px;
   }
 
   .oath-tablet::after {
