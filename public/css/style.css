@@ -1209,6 +1209,215 @@ main {
   margin-top: 0.65rem;
 }
 
+/* ── Ashen Oath — Master Artifact Card ───────────────────────────────────── */
+
+.codex-card.is-artifact {
+  grid-column: 1 / -1;
+  border-color: rgba(216,123,52,0.35);
+  background: rgba(12,9,6,0.97);
+  animation: artifactBreath 5s ease-in-out infinite;
+}
+
+.codex-card.is-artifact:hover {
+  border-color: rgba(216,123,52,0.62);
+  box-shadow: 0 0 32px rgba(216,123,52,0.32), inset 0 0 40px rgba(0,0,0,0.4);
+  background: rgba(16,11,7,0.99);
+}
+
+.codex-card.is-artifact.is-open {
+  background: rgba(10,7,4,0.99);
+}
+
+.codex-card.is-artifact.is-open .card-body {
+  border-top-color: rgba(216,123,52,0.18);
+}
+
+.codex-card[data-classification="relic-blade"] .card-badge { color: #D87B34; }
+
+.codex-card.is-artifact .card-term-name {
+  font-size: clamp(0.92rem, 1.6vw, 1.1rem);
+  letter-spacing: 0.1em;
+}
+
+@keyframes artifactBreath {
+  0%, 100% { box-shadow: 0 0 16px rgba(216,123,52,0.18), inset 0 0 40px rgba(0,0,0,0.3); }
+  50%       { box-shadow: 0 0 28px rgba(216,123,52,0.35), inset 0 0 40px rgba(0,0,0,0.3); }
+}
+
+.artifact-meta {
+  font-family: 'Cinzel', serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(216,123,52,0.6);
+  margin-bottom: 1.1rem;
+}
+
+.artifact-section {
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(216,123,52,0.1);
+}
+
+.artifact-section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(216,123,52,0.65);
+  margin-bottom: 0.65rem;
+}
+
+.artifact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.5rem;
+}
+
+.artifact-list li {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.97rem;
+  color: rgba(220,198,155,0.75);
+  padding: 0.18rem 0 0.18rem 1.2rem;
+  position: relative;
+  line-height: 1.65;
+}
+
+.artifact-list li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: rgba(216,123,52,0.55);
+  font-size: 1.3rem;
+  line-height: 1.3;
+}
+
+.covenant-mechanic {
+  background: rgba(216,123,52,0.03);
+  padding: 1rem 1.1rem;
+  border-left: 2px solid rgba(216,123,52,0.28);
+  border-radius: 0 4px 4px 0;
+  border-top: none;
+  margin-top: 1.4rem;
+}
+
+.covenant-subhead {
+  font-family: 'Cinzel', serif;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(216,123,52,0.5);
+  margin-bottom: 0.65rem;
+}
+
+.artifact-weakness .artifact-section-title {
+  color: rgba(190,75,45,0.7);
+}
+
+.artifact-note {
+  font-style: italic !important;
+  color: rgba(195,170,125,0.58) !important;
+  font-size: 0.9rem !important;
+  margin-top: 0.6rem;
+}
+
+/* ── Shadow Interaction (Ashen Oath response inside each Shadow card) ──────── */
+
+.shadow-interaction {
+  margin-top: 1rem;
+  padding: 0.7rem 1rem;
+  background: rgba(216,123,52,0.04);
+  border-left: 2px solid rgba(216,123,52,0.22);
+  border-radius: 0 4px 4px 0;
+}
+
+.interaction-label {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(216,123,52,0.5);
+  margin-bottom: 0.4rem;
+}
+
+.interaction-text {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: rgba(200,175,135,0.68);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Covenant Stages ────────────────────────────────────────────────────────── */
+
+.codex-covenant-header {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 0 2rem;
+}
+
+.covenant-stages {
+  grid-column: 1 / -1;
+  border: 1px solid rgba(216,123,52,0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(10,8,5,0.97);
+  margin-bottom: 2rem;
+}
+
+.covenant-stage {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid rgba(216,123,52,0.09);
+  transition: background 0.3s;
+}
+
+.covenant-stage:last-child { border-bottom: none; }
+
+.covenant-stage:hover { background: rgba(216,123,52,0.04); }
+
+.stage-numeral {
+  flex-shrink: 0;
+  width: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem 0;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.4rem;
+  color: rgba(216,123,52,0.28);
+  border-right: 1px solid rgba(216,123,52,0.1);
+  transition: color 0.3s;
+}
+
+.covenant-stage:hover .stage-numeral {
+  color: rgba(216,123,52,0.55);
+}
+
+.stage-content {
+  flex: 1;
+  padding: 1.2rem 1.6rem;
+}
+
+.stage-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #F4D4A4;
+  margin-bottom: 0.45rem;
+}
+
+.stage-desc {
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  color: rgba(205,182,140,0.7);
+  line-height: 1.78;
+  margin: 0;
+}
+
 /* ── Stone Tablet ── */
 
 .codex-tablet {
