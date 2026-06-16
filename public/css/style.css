@@ -1591,6 +1591,44 @@ main {
   flex: 1;
 }
 
+.chronicle-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    max-height 0.5s ease-out,
+    opacity 0.4s ease-out,
+    transform 0.4s ease-out;
+  border-top: 1px solid transparent;
+  margin-top: 0;
+}
+
+.chronicle-card.is-open .chronicle-body {
+  opacity: 1;
+  transform: translateY(0);
+  border-top-color: rgba(201,74,26,0.1);
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+.chronicle-body p {
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  color: rgba(196,180,154,0.82);
+  line-height: 1.85;
+  margin-bottom: 0.85rem;
+}
+
+.chronicle-body p:last-child { margin-bottom: 0; }
+
+.chronicle-sig {
+  font-style: italic;
+  color: rgba(170,145,110,0.6) !important;
+  font-size: 0.9rem !important;
+  margin-top: 0.4rem;
+}
+
 .chronicle-read {
   font-family: 'Cinzel', serif;
   font-size: 0.68rem;
@@ -1599,9 +1637,14 @@ main {
   color: var(--ember);
   transition: color 0.2s;
   align-self: flex-start;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .chronicle-card:hover .chronicle-read { color: var(--ember-hot); }
+.chronicle-card.is-open .chronicle-read { color: var(--ember-hot); }
 
 @media (max-width: 600px) {
   .chronicle-grid { grid-template-columns: 1fr; }
