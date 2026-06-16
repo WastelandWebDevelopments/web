@@ -1538,6 +1538,7 @@ main {
   flex-direction: column;
   gap: 0.75rem;
   transition: border-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
 }
 
 .chronicle-card:hover {
@@ -1595,18 +1596,15 @@ main {
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transform: translateY(-4px);
   transition:
     max-height 0.5s ease-out,
-    opacity 0.4s ease-out,
-    transform 0.4s ease-out;
+    opacity 0.4s ease-out;
   border-top: 1px solid transparent;
   margin-top: 0;
 }
 
 .chronicle-card.is-open .chronicle-body {
   opacity: 1;
-  transform: translateY(0);
   border-top-color: rgba(201,74,26,0.1);
   margin-top: 0.75rem;
   padding-top: 0.75rem;

@@ -167,16 +167,20 @@ if (missionWrapper) {
 
 // ── Chronicle card expand/collapse ───────────────────────────────────────
 
-document.querySelectorAll('.chronicle-read').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const card = btn.closest('.chronicle-card');
-    const body = card.querySelector('.chronicle-body');
+document.querySelectorAll('.chronicle-card').forEach(card => {
+  const body = card.querySelector('.chronicle-body');
+  const btn  = card.querySelector('.chronicle-read');
+  if (!body || !btn) return;
+
+  card.addEventListener('click', () => {
     const isOpen = card.classList.toggle('is-open');
     btn.setAttribute('aria-expanded', isOpen);
     body.style.maxHeight = isOpen ? body.scrollHeight + 'px' : '0';
-    btn.textContent = isOpen
-      ? btn.textContent.replace('Read', 'Close').replace('›', '↑')
-      : btn.textContent.replace('Close', 'Read').replace('↑', '›');
+    if (isOpen) {
+      btn.textContent = btn.textContent.replace(/^Read/, 'Close').replace('›', '↑');
+    } else {
+      btn.textContent = btn.textContent.replace(/^Close/, 'Read').replace('↑', '›');
+    }
   });
 });
 
