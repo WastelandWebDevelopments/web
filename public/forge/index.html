@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Forge — Lord of Embers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=UnifrakturMaguntia&family=IM+Fell+English+SC&display=swap" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+
+    <!-- ── Oath of the Hollow ─────────────────────────────────────── -->
+    <div id="oath-overlay" class="oath-overlay" role="dialog" aria-modal="true" aria-label="Oath of the Hollow">
+      <div class="oath-ember-bg"></div>
+
+      <div class="oath-tablet">
+        <div class="tablet-scroll-area">
+
+          <h2 class="tablet-title">Oath of the Hollow</h2>
+          <div class="tablet-rule"></div>
+
+          <div class="tablet-oath-body">
+            <p class="oath-para">I step before the Bonfire, where the Flame endures and the Hollow are named.</p>
+
+            <p class="oath-para">I am not whole. I am not untouched. I am what remains after the encounter.</p>
+
+            <p class="oath-para">I carry the marks of the Ashen Road, where every step demanded cost, and every lesson was carved into loss.</p>
+
+            <p class="oath-para">I have stood within the Black Fog and felt it close around thought and will. I have heard the Whispering Shade speak in the quiet places of my mind. I have felt the pull of the Void where nothing returns. I have known the weight of the Ash Tyrant when bitterness sought to become identity.</p>
+
+            <p class="oath-defiance">And still, I did not yield.</p>
+
+            <p class="oath-para">I name these Shadows not as myth, but as forces I have faced — and may face again.</p>
+
+            <ul class="oath-shadows">
+              <li>The Devourer that feeds on discipline.</li>
+              <li>The Chainsmith that binds the self in excuse.</li>
+              <li>The Silent Choir that erases difference into silence.</li>
+              <li>The Weeping Giant that crushes beneath grief unspoken.</li>
+              <li>The False Flame that offers ease in place of meaning.</li>
+            </ul>
+
+            <p class="oath-para">They do not vanish. They endure, as all trials endure.</p>
+
+            <p class="oath-para">So I do not swear their absence. I swear my resistance.</p>
+
+            <p class="oath-para">I accept the Codex not as story, but as reflection. Each entry is a mirror. Each name is a test I have already failed or survived — or will face again when the Long Night returns.</p>
+
+            <p class="oath-para">I do not walk free of the Shadows. I walk aware of them.</p>
+
+            <p class="oath-para">I carry the Ember not as salvation, but as defiance. A fragment that refuses extinction even when the world demands it.</p>
+
+            <p class="oath-para">I will not abandon the Ashen Road. I will not turn from the Black Fog. I will not forget what I am when the Flame burns low.</p>
+
+            <p class="oath-para">I stand among the Hollow, not above them, and I will not leave them to their silence.</p>
+
+            <p class="oath-witness">Let the Bonfire witness what I have endured.<br>Let the Codex record what I refuse to become.</p>
+
+            <p class="oath-creed">From the ashes we rise stronger.</p>
+          </div>
+
+          <div class="tablet-rule"></div>
+
+          <div class="tablet-disclaimer">
+            <p class="disclaimer-heading">&#9888; Content Warning &amp; Age Advisory</p>
+            <p class="disclaimer-body">This site explores themes that some viewers may find difficult — including depression, self-harm, grief, identity struggles, and mental health. Content is intended for audiences <strong>18 and older</strong>. If you are in crisis, please reach out to a qualified professional or a crisis helpline before continuing.</p>
+          </div>
+
+          <div class="tablet-action">
+            <label class="oath-check-label" for="oath-checkbox">
+              <input type="checkbox" id="oath-checkbox" class="oath-checkbox">
+              <span class="oath-check-custom" aria-hidden="true"></span>
+              <span class="oath-check-text">I have taken my oath and would like to enter the site</span>
+            </label>
+
+            <button class="oath-enter-btn" id="oath-enter" disabled>Enter</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <canvas id="sparks"></canvas>
+
+    <div class="char char-left" aria-hidden="true">
+      <img src="/img/monster.png" alt="" />
+    </div>
+    <div class="char char-right" aria-hidden="true">
+      <img src="/img/knight.png" alt="" />
+    </div>
+
+    <nav class="site-nav">
+      <div class="nav-inner">
+        <ul class="nav-links">
+
+          <li class="nav-item has-dropdown">
+            <a href="/#about">About</a>
+            <ul class="dropdown">
+              <li><a href="/#what-the-bonfire-represents">What the Bonfire Represents</a></li>
+              <li><a href="/#brand-mission">Brand Mission</a></li>
+              <li><a href="/#lore-terminology">Ember Codex</a></li>
+              <li><a href="/#lore-timeline">Lore Timeline</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-dropdown">
+            <a href="/#chronicle">The Chronicle</a>
+            <ul class="dropdown">
+              <li><a href="/#chronicle">Decrees</a></li>
+              <li><a href="/#chronicle">Dispatches</a></li>
+              <li><a href="/#chronicle">Remembrances</a></li>
+              <li><a href="/#chronicle">Flame Records</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-dropdown">
+            <a href="/forge">The Forge</a>
+            <ul class="dropdown">
+              <li><a href="#ashen-mind">Ashen Mind</a></li>
+              <li><a href="#iron-body">Iron Body</a></li>
+              <li><a href="#black-iron-path">Black Iron Path</a></li>
+              <li><a href="#flame-script">Flame Script</a></li>
+              <li><a href="#trial-of-embers">Trial of Embers</a></li>
+            </ul>
+          </li>
+
+        </ul>
+
+        <div class="nav-cta">
+          <a href="https://discord.gg/Hw8dDHbkh7" target="_blank" rel="noopener noreferrer" class="btn-cta btn-bonfire">
+            <span class="btn-long">🔥 Join The Bonfire</span>
+            <span class="btn-short">🔥 Bonfire</span>
+          </a>
+          <a href="/#streams" class="btn-cta btn-watch">
+            <span class="btn-long">⚔️ Watch Live</span>
+            <span class="btn-short">⚔️ Live</span>
+          </a>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <div class="nav-divider"></div>
+    </nav>
+
+    <main>
+
+      <section class="forge-hero">
+        <h1 class="forge-hero-title">The Forge</h1>
+        <p class="forge-hero-sub">What is sharpened here survives elsewhere.</p>
+        <p class="forge-hero-note">The Bonfire is where the Hollow rest. The Ashen Road is where they walk. The Forge is where they stop being soft enough to break. Five Anvils wait below. Choose the one that wears at you most, and strike it until it gives.</p>
+      </section>
+
+      <section class="path-select">
+        <div class="path-grid">
+          <a class="path-tile" href="#ashen-mind">
+            <div class="path-glyph">&#9760;</div>
+            <div class="path-name">Ashen Mind</div>
+            <div class="path-sub">Mental Resilience</div>
+          </a>
+          <a class="path-tile" href="#iron-body">
+            <div class="path-glyph">&#9876;</div>
+            <div class="path-name">Iron Body</div>
+            <div class="path-sub">Fitness Discipline</div>
+          </a>
+          <a class="path-tile" href="#black-iron-path">
+            <div class="path-glyph">&#9874;</div>
+            <div class="path-name">Black Iron Path</div>
+            <div class="path-sub">Career Growth</div>
+          </a>
+          <a class="path-tile" href="#flame-script">
+            <div class="path-glyph">&#9998;</div>
+            <div class="path-name">Flame Script</div>
+            <div class="path-sub">Content Creation</div>
+          </a>
+          <a class="path-tile" href="#trial-of-embers">
+            <div class="path-glyph">&#9889;</div>
+            <div class="path-name">Trial of Embers</div>
+            <div class="path-sub">Gaming Improvement</div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ── Ashen Mind ─────────────────────────────────────────────── -->
+      <section class="branch-section" id="ashen-mind">
+        <div class="container">
+          <header class="branch-header">
+            <h2 class="branch-name">Ashen Mind</h2>
+            <p class="branch-sub">Mental Resilience</p>
+          </header>
+          <p class="branch-tone">Survival of the self against internal collapse.</p>
+
+          <div class="entry-grid">
+
+            <article class="entry-card" id="the-stilling-drill">
+              <button class="entry-toggle">
+                <span class="entry-title">The Stilling Drill</span>
+                <span class="entry-badge type-drill">Drill</span>
+                <span class="entry-badge diff-initiate">Initiate</span>
+                <span class="entry-chevron">›</span>
+              </button>
+              <div class="entry-body">
+                <div class="entry-tags">
+                  <span class="entry-tag">mental</span>
+                  <span class="entry-tag">discipline</span>
+                  <span class="entry-tag">clarity</span>
+                </div>
+                <p class="entry-content">When the Black Fog presses against the skull, the untrained Hollow fights it directly and loses. The trained Hollow does not fight. They still the breath — four counts in, four counts held, four released, four held empty. Four cycles. Nothing more is required. This is not relaxation. It is a wall built one breath at a time, and walls do not need to feel good to hold.</p>
+                <div class="entry-related">
+                  <span class="entry-related-label">Related:</span>
+                  <button class="entry-related-link" data-target="the-second-watch">The Second Watch</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="entry-card" id="the-second-watch">
+              <button class="entry-toggle">
+                <span class="entry-title">The Second Watch</span>
+                <span class="entry-badge type-doctrine">Doctrine</span>
+                <span class="entry-badge diff-ember">Ember</span>
+                <span class="entry-chevron">›</span>
+              </button>
+              <div class="entry-body">
+                <div class="entry-tags">
+                  <span class="entry-tag">discipline</span>
+                  <span class="entry-tag">endurance</span>
+                  <span class="entry-tag">clarity</span>
+                </div>
+                <p class="entry-content">Every Hollow keeps two watches. The first watch is the mind doing its work — observing, deciding, acting. The second watch is the Shadow that rides behind it, narrating failure before it happens. Most collapse not from the first watch's mistakes, but from believing everything the second watch whispers. Name the second watch when it speaks. Naming a Shadow does not banish it. It strips its authority.</p>
+                <div class="entry-related">
+                  <span class="entry-related-label">Related:</span>
+                  <button class="entry-related-link" data-target="the-stilling-drill">The Stilling Drill</button>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Iron Body ──────────────────────────────────────────────── -->
+      <section class="branch-section" id="iron-body">
+        <div class="container">
+          <header class="branch-header">
+            <h2 class="branch-name">Iron Body</h2>
+            <p class="branch-sub">Fitness Discipline</p>
+          </header>
+          <p class="branch-tone">Forging strength through repetition and pain resistance.</p>
+
+          <div class="entry-grid">
+
+            <article class="entry-card" id="the-first-mile-standard">
+              <button class="entry-toggle">
+                <span class="entry-title">The First Mile Standard</span>
+                <span class="entry-badge type-protocol">Protocol</span>
+                <span class="entry-badge diff-initiate">Initiate</span>
+                <span class="entry-chevron">›</span>
+              </button>
+              <div class="entry-body">
+                <div class="entry-tags">
+                  <span class="entry-tag">fitness</span>
+                  <span class="entry-tag">routine</span>
+                  <span class="entry-tag">endurance</span>
+                </div>
+                <p class="entry-content">Strength is not requested. It is taken through repetition, the same motion repeated past the point where it stops being interesting. Walk the first mile before you run any of them. Discipline is built at the threshold most abandon — the second week, when the result has not yet shown and the cost has not yet been forgotten.</p>
+                <div class="entry-related">
+                  <span class="entry-related-label">Related:</span>
+                  <button class="entry-related-link" data-target="doctrine-of-the-forged-body">Doctrine of the Forged Body</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="entry-card" id="doctrine-of-the-forged-body">
+              <button class="entry-toggle">
+                <span class="entry-title">Doctrine of the Forged Body</span>
+                <span class="entry-badge type-doctrine">Doctrine</span>
+                <span class="entry-badge diff-burned">Burned</span>
+                <span class="entry-chevron">›</span>
+              </button>
+              <div class="entry-body">
+                <div class="entry-tags">
+                  <span class="entry-tag">strength</span>
+                  <span class="entry-tag">stamina</span>
+                  <span class="entry-tag">routine</span>
+                </div>
+                <p class="entry-content">The body that has been tempered does not ask permission to endure. It was given none of it gently. Recovery is not weakness — a blade quenched too fast cracks. Rest the body as deliberately as you load it, or the iron you are building will shatter under its own weight before it ever sees use.</p>
+                <div class="entry-related">
+                  <span class="entry-related-label">Related:</span>
+                  <button class="entry-related-link" data-target="the-first-mile-standard">The First Mile Standard</button>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Black Iron Path ────────────────────────────────────────── -->
+      <section class="branch-section" id="black-iron-path">
+        <div class="container">
+          <header class="branch-header">
+            <h2 class="branch-name">Black Iron Path</h2>
+            <p class="branch-sub">Career Growth</p>
+          </header>
+          <p class="branch-tone">Surviving and advancing through modern systems.</p>
+
+          <div class="entry-grid">
+
+            <article class="entry-card" id="the-apprentices-toll">
+              <button class="entry-toggle">
+                <span class="entry-title">The Apprentice's Toll</span>
+                <span class="entry-badge type-protocol">Protocol</span>
+                <span class="entry-badge diff-initiate">Initiate</span>
+                <span class="entry-chevron">›</span>
+              </button>
+              <div class="entry-body">
+                <div class="entry-tags">
+                  <span class="entry-tag">career</span>
+                  <span class="entry-tag">skills</span>
+                  <span class="entry-tag">progression</span>
+                </div>
+                <p class="entry-content">No one is owed advancement. The Black Iron Path is walked the same way the Ashen Road is walked — one deliberate skill at a time, paid for in hours no one applauds. Choose one craft. Carry it until it holds weight, then choose the next.</p>
+                <div class="entry-related">
+                  <span class="entry-related-label">Related:</span>
+                  <button class="entry-related-link" data-target="warning-the-comfortable-forge">Warning: The Comfortable Forge</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="entry-card" id="warning-the-comfortable-forge">
+              <button class="entry-toggle">
+                <span class="entry-title">Warning: The Comfortable Forge</span>
+                <span class="entry-badge type-warning">Warning</span>
+                <span class="entry-badge diff-ember">Ember</span>
+                <span class="entry-chevron">›</span>
+              </button>
+              <div class="entry-body">
+                <div class="entry-tags">
+                  <span class="entry-tag">career</span>
+                  <span class="entry-tag">progression</span>
+                </div>
+                <p class="entry-content">There is a forge that grows comfortable, and comfort is where skill calcifies. If the work has stopped demanding anything of you, the path is not progressing — it has stalled and is calling itself stable. Recognize stillness disguised as security before it costs you the years it is quietly taking.</p>
+                <div class="entry-related">
+                  <span class="entry-related-label">Related:</span>
+                  <button class="entry-related-link" data-target="the-apprentices-toll">The Apprentice's Toll</button>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Flame Script ───────────────────────────────────────────── -->
+      <section class="branch-section" id="flame-script">
+        <div class="container">
+          <header class="branch-header">
+            <h2 class="branch-name">Flame Script</h2>
+            <p class="branch-sub">Content Creation</p>
+          </header>
+          <p class="branch-tone">Creating signal and identity in a chaotic world.</p>
+
+          <div class="entry-grid">
+
+            <article class="entry-card" id="casting-the-first-ember">
+              <button class="entry-toggle">
+                <span class="entry-title">Casting the First Ember</span>
+                <span class="entry-badge type-protocol">Protocol</span>
+                <span class="entry-badge diff-initiate">Initiate</span>
+                <span class="entry-chevron">›</span>
+              </button>
+              <div class="entry-body">
+                <div class="entry-tags">
+                  <span class="entry-tag">content</span>
+                  <span class="entry-tag">audience</span>
+                  <span class="entry-tag">growth</span>
+                </div>
+                <p class="entry-content">An ember cast once and never again is not a signal — it is an accident. Cast consistently, even small, even imperfect, until the casting itself becomes the discipline rather than the result of any single throw.</p>
+                <div class="entry-related">
+                  <span class="entry-related-label">Related:</span>
+                  <button class="entry-related-link" data-target="the-false-flame-doctrine">The False Flame Doctrine</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="entry-card" id="the-false-flame-doctrine">
+              <button class="entry-toggle">
+                <span class="entry-title">The False Flame Doctrine</span>
+                <span class="entry-badge type-doctrine">Doctrine</span>
+                <span class="entry-badge diff-ember">Ember</span>
+                <span class="entry-chevron">›</span>
+              </button>
+              <div class="entry-body">
+                <div class="entry-tags">
+                  <span class="entry-tag">branding</span>
+                  <span class="entry-tag">growth</span>
+                </div>
+                <p class="entry-content">The False Flame burns bright and draws the eye, but it carries nothing true within it. Numbers chased without meaning behind them are the False Flame's favorite trick. Build the signal first. Let the count follow it, not the other way around.</p>
+                <div class="entry-related">
+                  <span class="entry-related-label">Related:</span>
+                  <button class="entry-related-link" data-target="casting-the-first-ember">Casting the First Ember</button>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Trial of Embers ────────────────────────────────────────── -->
+      <section class="branch-section" id="trial-of-embers">
+        <div class="container">
+          <header class="branch-header">
+            <h2 class="branch-name">Trial of Embers</h2>
+            <p class="branch-sub">Gaming Improvement</p>
+          </header>
+          <p class="branch-tone">Mastery through failure and repetition.</p>
+
+          <div class="entry-grid">
+
+            <article class="entry-card" id="the-repetition-trial">
+              <button class="entry-toggle">
+                <span class="entry-title">The Repetition Trial</span>
+                <span class="entry-badge type-drill">Drill</span>
+                <span class="entry-badge diff-initiate">Initiate</span>
+                <span class="entry-chevron">›</span>
+              </button>
+              <div class="entry-body">
+                <div class="entry-tags">
+                  <span class="entry-tag">mechanics</span>
+                  <span class="entry-tag">skill</span>
+                  <span class="entry-tag">strategy</span>
+                </div>
+                <p class="entry-content">Mastery is not granted by the match you win. It is built in the fifty you study afterward. Review your own ash — what failed, where, and why — before you queue again chasing a different outcome from the same unexamined mistake.</p>
+                <div class="entry-related">
+                  <span class="entry-related-label">Related:</span>
+                  <button class="entry-related-link" data-target="doctrine-of-the-long-tilt">Doctrine of the Long Tilt</button>
+                </div>
+              </div>
+            </article>
+
+            <article class="entry-card" id="doctrine-of-the-long-tilt">
+              <button class="entry-toggle">
+                <span class="entry-title">Doctrine of the Long Tilt</span>
+                <span class="entry-badge type-warning">Warning</span>
+                <span class="entry-badge diff-burned">Burned</span>
+                <span class="entry-chevron">›</span>
+              </button>
+              <div class="entry-body">
+                <div class="entry-tags">
+                  <span class="entry-tag">strategy</span>
+                  <span class="entry-tag">mechanics</span>
+                </div>
+                <p class="entry-content">Tilt is a Shadow that wears the mask of determination. It convinces the Hollow that one more match will undo the last five losses. It will not. Step back from the Trial when the only thing sharpening is your frustration, not your play.</p>
+                <div class="entry-related">
+                  <span class="entry-related-label">Related:</span>
+                  <button class="entry-related-link" data-target="the-repetition-trial">The Repetition Trial</button>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <script src="/js/sparks.js"></script>
+    <script src="/js/ui.js"></script>
+  </body>
+</html>

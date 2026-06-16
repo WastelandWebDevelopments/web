@@ -275,6 +275,32 @@ document.querySelectorAll('.dropdown li a').forEach(link => {
   });
 });
 
+// ── The Forge entry cards ─────────────────────────────────────────────────
+
+document.querySelectorAll('.entry-card').forEach(card => {
+  const body = card.querySelector('.entry-body');
+  if (!body) return;
+
+  card.querySelector('.entry-toggle').addEventListener('click', () => {
+    const isOpen = card.classList.toggle('is-open');
+    body.style.maxHeight = isOpen ? body.scrollHeight + 'px' : '0';
+  });
+
+  card.querySelectorAll('.entry-related-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.stopPropagation();
+      const target = document.getElementById(link.dataset.target);
+      if (!target) return;
+      if (!target.classList.contains('is-open')) {
+        target.classList.add('is-open');
+        const targetBody = target.querySelector('.entry-body');
+        targetBody.style.maxHeight = targetBody.scrollHeight + 'px';
+      }
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+});
+
 // ── Oath of the Hollow ─────────────────────────────────────────────────────
 
 (function () {

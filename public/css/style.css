@@ -1648,6 +1648,286 @@ main {
   .chronicle-grid { grid-template-columns: 1fr; }
 }
 
+/* ── The Forge (dedicated page) ──────────────────────────────────────────── */
+
+.forge-hero {
+  padding: 7rem 1.5rem 3.5rem;
+  text-align: center;
+  background: radial-gradient(circle at 50% 0%, rgba(201,74,26,0.08), transparent 60%), #0a0807;
+}
+
+.forge-hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  color: #F4D4A4;
+  text-shadow: 0 0 30px rgba(216,123,52,0.3);
+  letter-spacing: 0.05em;
+}
+
+.forge-hero-sub {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--ash);
+  margin-top: 0.75rem;
+}
+
+.forge-hero-note {
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  color: #c4b49a;
+  line-height: 1.85;
+  max-width: 660px;
+  margin: 1.75rem auto 0;
+}
+
+/* Path selection tiles */
+
+.path-select {
+  background: #070707;
+  padding: 1rem 1.5rem 4rem;
+}
+
+.path-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.path-tile {
+  position: relative;
+  display: block;
+  background: rgba(12, 10, 8, 0.95);
+  border: 1px solid rgba(201, 74, 26, 0.18);
+  border-radius: 4px;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  text-decoration: none;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.path-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 110%, rgba(216,123,52,0.18), transparent 65%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.path-tile:hover {
+  border-color: rgba(216,123,52,0.5);
+  box-shadow: 0 0 28px rgba(201,74,26,0.15);
+  transform: translateY(-3px);
+}
+
+.path-tile:hover::before { opacity: 1; }
+
+.path-glyph {
+  font-size: 1.6rem;
+  color: var(--ember);
+  margin-bottom: 0.6rem;
+  position: relative;
+}
+
+.path-name {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 1.15rem;
+  color: #F4D4A4;
+  position: relative;
+}
+
+.path-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(154, 128, 112, 0.75);
+  margin-top: 0.4rem;
+  position: relative;
+}
+
+/* Branch sections */
+
+.branch-section { background: #0a0807; padding: 4rem 1.5rem; }
+.branch-section:nth-of-type(even) { background: #070707; }
+
+.branch-header { text-align: center; margin-bottom: 0.75rem; }
+
+.branch-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  color: #F4D4A4;
+}
+
+.branch-sub {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ember);
+  margin-top: 0.3rem;
+}
+
+.branch-tone {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 0.98rem;
+  color: var(--ash);
+  text-align: center;
+  max-width: 560px;
+  margin: 0.75rem auto 2.5rem;
+}
+
+/* Entry cards */
+
+.entry-grid {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.entry-card {
+  background: rgba(12, 10, 8, 0.95);
+  border: 1px solid rgba(201, 74, 26, 0.15);
+  border-radius: 4px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.entry-card:hover {
+  border-color: rgba(201, 74, 26, 0.4);
+  box-shadow: 0 0 24px rgba(201, 74, 26, 0.1);
+}
+
+.entry-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.9rem;
+  background: none;
+  border: none;
+  padding: 1.4rem 1.6rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.entry-title {
+  font-family: 'IM Fell English SC', serif;
+  font-size: clamp(1rem, 1.8vw, 1.12rem);
+  color: #F4D4A4;
+  flex: 1 1 auto;
+}
+
+.entry-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 2px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+
+.entry-badge.type-protocol { color: #A8C87A; }
+.entry-badge.type-drill    { color: #D99145; }
+.entry-badge.type-doctrine { color: #9B6B9B; }
+.entry-badge.type-warning  { color: var(--ember-hot); }
+
+.entry-badge.diff-initiate  { color: rgba(154,128,112,0.85); }
+.entry-badge.diff-ember     { color: #D99145; }
+.entry-badge.diff-burned    { color: #C9472B; }
+.entry-badge.diff-ascendant { color: #F4D4A4; }
+
+.entry-chevron {
+  font-size: 1.1rem;
+  color: var(--ember);
+  transition: transform 0.3s;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.entry-card.is-open .entry-chevron { transform: rotate(90deg); }
+
+.entry-body {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease-out, opacity 0.4s ease-out;
+  padding: 0 1.6rem;
+}
+
+.entry-card.is-open .entry-body {
+  opacity: 1;
+  padding: 0 1.6rem 1.6rem;
+}
+
+.entry-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.entry-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(154, 128, 112, 0.7);
+  border: 1px solid rgba(154, 128, 112, 0.25);
+  border-radius: 2px;
+  padding: 0.15rem 0.5rem;
+}
+
+.entry-content {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.98rem;
+  color: rgba(196,180,154,0.88);
+  line-height: 1.85;
+  margin-bottom: 1rem;
+  border-top: 1px solid rgba(201,74,26,0.1);
+  padding-top: 1rem;
+}
+
+.entry-related {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.entry-related-label { color: rgba(154,128,112,0.6); }
+
+.entry-related-link {
+  color: var(--ember);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(216,123,52,0.4);
+  padding: 0;
+}
+
+.entry-related-link:hover { color: var(--ember-hot); }
+
+@media (max-width: 600px) {
+  .path-grid { grid-template-columns: 1fr; }
+  .entry-toggle { padding: 1.2rem 1.25rem; }
+  .entry-body { padding: 0 1.25rem; }
+  .entry-card.is-open .entry-body { padding: 0 1.25rem 1.4rem; }
+}
+
 /* ── Lore Timeline ────────────────────────────────────────────────────────── */
 
 .timeline-section {
