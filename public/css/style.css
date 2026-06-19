@@ -5,12 +5,29 @@
 }
 
 :root {
-  --bg:        #000000;
+  --bg:        #080604;
+  --surface:   #0e0b08;
   --ember:     #c94a1a;
   --ember-hot: #ff8c00;
-  --ash:       #9a8070;
+  --ash:       #8a7265;
   --parchment: #f0e6d0;
   --bone:      #faf4e8;
+
+  --gold-primary: #F4D4A4;
+  --gold-warm:    #f8d7a0;
+  --gold-muted:   #d4b87a;
+  --gold-ember:   #ffb366;
+  --gold-bright:  #ffdd88;
+  --gold-dim:     rgba(244, 212, 164, 0.55);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 html, body {
@@ -23,6 +40,16 @@ body {
   background-color: var(--bg);
   color: var(--parchment);
   font-family: 'Cinzel', serif;
+}
+
+::selection {
+  background: rgba(201, 74, 26, 0.3);
+  color: var(--bone);
+}
+
+:focus-visible {
+  outline: 1px solid var(--ember);
+  outline-offset: 3px;
 }
 
 #sparks {
@@ -67,6 +94,7 @@ main {
 }
 
 .hero {
+  position: relative;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -76,17 +104,79 @@ main {
   padding-top: calc(60px + 2rem);
 }
 
+.scroll-invite {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--ember);
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+  line-height: 1;
+}
+
+.scroll-invite.is-visible {
+  opacity: 0.45;
+  animation: scroll-bounce 2.2s ease-in-out 0.3s infinite;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(7px); }
+}
+
 .hero-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 2.5rem;
+}
+
+/* ── Hero entrance staging ── */
+
+.hero-staged .site-title {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+.hero-staged .hero-divider {
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+.hero-staged .tagline {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+/* ── Nav proof strip ── */
+
+.nav-proof-strip {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 0.22rem 2rem 0.28rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(138, 114, 101, 0.55);
+}
+
+.nav-proof-strip .proof-sep {
+  color: var(--ember);
+  opacity: 0.45;
+}
+
+@media (max-width: 1024px) {
+  .nav-proof-strip { display: none; }
 }
 
 .site-title {
   font-family: 'IM Fell English SC', serif;
   font-size: clamp(2.8rem, 8vw, 6.5rem);
-  font-weight: 900;
   letter-spacing: 0.05em;
   color: var(--bone);
   line-height: 1.1;
@@ -95,14 +185,12 @@ main {
     0 0 50px rgba(201, 74, 26, 0.7),
     0 0 100px rgba(180, 50, 10, 0.4),
     0 4px 8px rgba(0, 0, 0, 1);
-  animation: title-flicker 4s ease-in-out infinite alternate;
+  animation: title-flicker 7s ease-in-out infinite alternate;
 }
 
 @keyframes title-flicker {
-  0%   { text-shadow: 0 0 20px rgba(255,140,0,0.9), 0 0 50px rgba(201,74,26,0.7), 0 0 100px rgba(180,50,10,0.4), 0 4px 8px #000; }
-  33%  { text-shadow: 0 0 15px rgba(255,140,0,0.7), 0 0 40px rgba(201,74,26,0.5), 0 0  80px rgba(180,50,10,0.3), 0 4px 8px #000; }
-  66%  { text-shadow: 0 0 25px rgba(255,160,0,1.0), 0 0 60px rgba(220,80,20,0.8), 0 0 120px rgba(180,50,10,0.5), 0 4px 8px #000; }
-  100% { text-shadow: 0 0 18px rgba(255,120,0,0.8), 0 0 45px rgba(201,74,26,0.6), 0 0  90px rgba(180,50,10,0.35),0 4px 8px #000; }
+  from { text-shadow: 0 0 18px rgba(255,140,0,0.75), 0 0 45px rgba(201,74,26,0.55), 0 0 90px rgba(180,50,10,0.3),  0 4px 8px #000; }
+  to   { text-shadow: 0 0 24px rgba(255,140,0,0.92), 0 0 60px rgba(201,74,26,0.65), 0 0 110px rgba(180,50,10,0.38), 0 4px 8px #000; }
 }
 
 .flame-divider {
@@ -114,16 +202,15 @@ main {
     transparent 0%,
     var(--ember) 15%,
     var(--ember-hot) 35%,
-    #ffdd88 50%,
+    var(--gold-bright) 50%,
     var(--ember-hot) 65%,
     var(--ember) 85%,
     transparent 100%
   );
   box-shadow:
-    0 0 6px var(--ember-hot),
-    0 0 18px rgba(255, 140, 0, 0.6),
-    0 0 40px rgba(201, 74, 26, 0.35);
-  animation: ember-pulse 2.5s ease-in-out infinite alternate;
+    0 0 8px var(--ember-hot),
+    0 0 22px rgba(255, 140, 0, 0.65),
+    0 0 48px rgba(201, 74, 26, 0.4);
 }
 
 @keyframes ember-pulse {
@@ -138,9 +225,10 @@ main {
 }
 
 .tagline {
-  font-family: 'UnifrakturMaguntia', cursive;
-  font-size: clamp(1.5rem, 3.75vw, 2.1rem);
-  letter-spacing: 0.05em;
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: clamp(1.4rem, 3.25vw, 1.9rem);
+  letter-spacing: 0.03em;
   color: var(--ash);
   text-shadow:
     0 0 10px rgba(255, 130, 20, 0.45),
@@ -193,59 +281,20 @@ main {
   text-decoration: none;
   white-space: nowrap;
   text-shadow:
-    0 0 2px #ffffff,
-    0 0 8px rgba(255, 230, 100, 0.95),
-    0 0 16px rgba(255, 155, 20, 0.9),
-    0 0 30px rgba(230, 85, 10, 0.7),
-    0 0 55px rgba(180, 40, 5, 0.45);
-  animation: brand-heat 3.5s ease-in-out infinite alternate;
+    0 0 10px rgba(255, 155, 20, 0.45),
+    0 0 28px rgba(201, 74, 26, 0.22);
+  transition: text-shadow 0.25s ease, color 0.25s ease;
 }
 
 .nav-item > a:hover,
 .nav-item:hover > a {
   color: #ffffff;
   text-shadow:
-    0 0 3px #ffffff,
-    0 0 12px rgba(255, 245, 150, 1.0),
-    0 0 24px rgba(255, 180, 30, 1.0),
-    0 0 45px rgba(240, 100, 10, 0.85),
-    0 0 80px rgba(200, 50, 5, 0.6);
+    0 0 10px rgba(255, 200, 80, 0.75),
+    0 0 28px rgba(255, 140, 20, 0.6),
+    0 0 55px rgba(201, 74, 26, 0.4);
 }
 
-@keyframes brand-heat {
-  0%   {
-    text-shadow:
-      0 0 2px #fff,
-      0 0 8px  rgba(255,230,100,0.95),
-      0 0 16px rgba(255,155, 20,0.90),
-      0 0 30px rgba(230, 85, 10,0.70),
-      0 0 55px rgba(180, 40,  5,0.45);
-  }
-  35%  {
-    text-shadow:
-      0 0 2px #fff,
-      0 0 5px  rgba(255,210, 80,0.80),
-      0 0 11px rgba(255,130, 15,0.75),
-      0 0 22px rgba(210, 70,  8,0.55),
-      0 0 42px rgba(160, 35,  4,0.35);
-  }
-  70%  {
-    text-shadow:
-      0 0 3px #fff,
-      0 0 10px rgba(255,245,130,1.00),
-      0 0 20px rgba(255,175, 25,0.95),
-      0 0 38px rgba(240, 95, 12,0.75),
-      0 0 68px rgba(195, 48,  6,0.50);
-  }
-  100% {
-    text-shadow:
-      0 0 2px #fff,
-      0 0 7px  rgba(255,220, 90,0.88),
-      0 0 14px rgba(255,145, 18,0.84),
-      0 0 26px rgba(220, 78,  9,0.63),
-      0 0 50px rgba(170, 38,  5,0.40);
-  }
-}
 
 .dropdown {
   position: absolute;
@@ -339,7 +388,7 @@ main {
   letter-spacing: 0.1em;
   text-decoration: none;
   border: 1px solid;
-  transition: all 0.2s;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   white-space: nowrap;
 }
 
@@ -374,7 +423,7 @@ main {
     transparent 0%,
     var(--ember) 10%,
     var(--ember-hot) 35%,
-    #ffdd88 50%,
+    var(--gold-bright) 50%,
     var(--ember-hot) 65%,
     var(--ember) 90%,
     transparent 100%
@@ -391,6 +440,52 @@ main {
   padding: 6rem 2rem;
   position: relative;
   z-index: 1;
+}
+
+/* Codex section header flame-divider — wider than the default 45% */
+.codex-section .section-header .flame-divider {
+  width: 55%;
+  margin-top: 1rem;
+}
+
+/* Section hierarchy — major sections breathe more */
+#about        { padding: 8rem 2rem; }
+#lore-terminology { padding: 8rem 2rem; }
+#chronicle    { padding: 7rem 2rem; }
+#lore-timeline { padding: 5rem 2rem; }
+
+/* Warm/cool section temperature — alternating so the eye gets a reset */
+#about {
+  background:
+    radial-gradient(ellipse at 50% 110%, rgba(201, 74, 26, 0.05) 0%, transparent 55%),
+    #080604;
+}
+
+#chronicle {
+  background:
+    radial-gradient(ellipse at 50% 110%, rgba(201, 74, 26, 0.04) 0%, transparent 55%),
+    #070707;
+}
+
+/* ── Chronicle section header — breaks the center-lock pattern ── */
+
+.section-header--chronicle {
+  text-align: left;
+}
+
+.section-header--chronicle .flame-divider {
+  margin: 0.75rem 0 0;
+  width: 40%;
+}
+
+.section-kicker {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ember);
+  opacity: 0.8;
+  margin-bottom: 0.6rem;
 }
 
 .section-alt {
@@ -440,8 +535,8 @@ main {
 }
 
 .body-text {
-  font-family: 'Cinzel', serif;
-  font-size: 0.95rem;
+  font-family: 'Crimson Text', serif;
+  font-size: 1.05rem;
   color: var(--ash);
   line-height: 1.85;
 }
@@ -457,7 +552,7 @@ main {
 .bonfire-creed {
   font-family: 'Cinzel', serif;
   font-size: clamp(0.8rem, 1.4vw, 0.95rem);
-  letter-spacing: 0.22em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ash);
   margin-bottom: 2.5rem;
@@ -467,14 +562,13 @@ main {
 }
 
 .bonfire-title {
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: 'IM Fell English SC', serif;
   font-size: clamp(1.8rem, 4.5vw, 3.2rem);
-  color: #f8d7a0;
+  color: var(--gold-warm);
   text-shadow:
     0 0 12px rgba(255, 140, 40, 0.7),
     0 0 30px rgba(201, 74, 26, 0.4);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
   margin-bottom: 1rem;
   opacity: 0;
   transform: translateY(20px);
@@ -527,7 +621,7 @@ main {
 .bonfire-tagline {
   font-family: 'Cinzel', serif;
   font-size: clamp(0.85rem, 1.5vw, 1rem);
-  letter-spacing: 0.3em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 700;
   color: var(--ember-hot);
@@ -574,9 +668,9 @@ main {
 }
 
 .sig-name {
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: 'IM Fell English SC', serif;
   font-size: clamp(0.95rem, 1.8vw, 1.3rem);
-  color: #f8d7a0;
+  color: var(--gold-warm);
   text-shadow: 0 0 10px rgba(255, 140, 40, 0.6);
   letter-spacing: 0.1em;
 }
@@ -685,9 +779,9 @@ main {
 }
 
 .mission-scroll p {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(0.88rem, 1.4vw, 0.98rem);
-  line-height: 2;
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(1rem, 1.6vw, 1.12rem);
+  line-height: 1.9;
   color: #180c01;
   margin-bottom: 1.75rem;
 }
@@ -806,8 +900,8 @@ main {
 }
 
 .term-def {
-  font-family: 'Cinzel', serif;
-  font-size: 0.9rem;
+  font-family: 'Crimson Text', serif;
+  font-size: 1.05rem;
   color: var(--ash);
   line-height: 1.85;
 }
@@ -978,22 +1072,15 @@ main {
   background:
     radial-gradient(ellipse at 15% 30%, rgba(201, 74, 26, 0.05) 0%, transparent 55%),
     radial-gradient(ellipse at 85% 70%, rgba(150, 40, 10, 0.04) 0%, transparent 55%);
-  animation: fog-drift 9s ease-in-out infinite alternate;
   pointer-events: none;
 }
 
-@keyframes fog-drift {
-  from { transform: translateX(-12px); opacity: 0.6; }
-  to   { transform: translateX(12px);  opacity: 1.0; }
-}
 
 .codex-main-title {
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: 'IM Fell English SC', serif;
   font-size: clamp(1.6rem, 4vw, 2.8rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: #F4D4A4;
+  letter-spacing: 0.12em;
+  color: var(--gold-primary);
   text-shadow:
     0 0 10px rgba(255, 140, 50, 0.6),
     0 0 20px rgba(255, 90, 20, 0.4);
@@ -1013,14 +1100,14 @@ main {
 .codex-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1rem;
+  gap: 1.5rem;
   margin-bottom: 4rem;
 }
 
 .codex-card {
   background: rgba(15, 15, 15, 0.95);
   border: 1px solid rgba(255, 120, 40, 0.2);
-  border-radius: 12px;
+  border-radius: 3px;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(255, 100, 30, 0.08);
   transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
@@ -1047,7 +1134,7 @@ main {
 .card-term-name {
   font-family: 'Cinzel', serif;
   font-size: clamp(0.8rem, 1.3vw, 0.92rem);
-  color: #F4D4A4;
+  color: var(--gold-primary);
   letter-spacing: 0.06em;
   flex: 1;
 }
@@ -1117,11 +1204,10 @@ main {
 }
 
 .adv-title {
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: 'IM Fell English SC', serif;
   font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   color: #e08060;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  letter-spacing: 0.08em;
   text-shadow: 0 0 12px rgba(196, 58, 26, 0.55), 0 0 28px rgba(196, 58, 26, 0.25);
   margin-bottom: 0.4rem;
 }
@@ -1195,10 +1281,11 @@ main {
 }
 
 .card-fragment {
-  font-family: 'Cinzel', serif;
-  font-size: 0.78rem;
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 0.92rem;
   color: var(--ash);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.02em;
   margin-bottom: 0.2rem;
 }
 
@@ -1385,7 +1472,7 @@ main {
   align-items: center;
   justify-content: center;
   padding: 1.4rem 0;
-  font-family: 'Cinzel Decorative', serif;
+  font-family: 'IM Fell English SC', serif;
   font-size: 1.4rem;
   color: rgba(216,123,52,0.28);
   border-right: 1px solid rgba(216,123,52,0.1);
@@ -1406,7 +1493,7 @@ main {
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #F4D4A4;
+  color: var(--gold-primary);
   margin-bottom: 0.45rem;
 }
 
@@ -1471,7 +1558,7 @@ main {
   margin-top: 1.5rem;
   font-family: 'Cinzel', serif;
   font-size: 0.75rem;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.14em;
   color: var(--ash);
   font-style: normal;
   text-transform: uppercase;
@@ -1480,6 +1567,7 @@ main {
 @media (max-width: 768px) {
   .codex-grid { grid-template-columns: 1fr; }
   .codex-tablet { padding: 2rem 1.5rem; }
+  .about-intro { grid-template-columns: 1fr; }
 }
 
 /* ── The Chronicle ────────────────────────────────────────────────────────── */
@@ -1579,7 +1667,7 @@ main {
 .chronicle-title {
   font-family: 'IM Fell English SC', serif;
   font-size: clamp(1rem, 1.8vw, 1.15rem);
-  color: #F4D4A4;
+  color: var(--gold-primary);
   line-height: 1.35;
   text-shadow: 0 0 8px rgba(255, 140, 40, 0.2);
 }
@@ -1657,11 +1745,11 @@ main {
 }
 
 .forge-hero-title {
-  font-family: 'Cinzel Decorative', serif;
+  font-family: 'IM Fell English SC', serif;
   font-size: clamp(2.4rem, 6vw, 4rem);
-  color: #F4D4A4;
+  color: var(--gold-primary);
   text-shadow: 0 0 30px rgba(216,123,52,0.3);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 
 .forge-hero-sub {
@@ -1736,7 +1824,7 @@ main {
 .path-name {
   font-family: 'IM Fell English SC', serif;
   font-size: 1.15rem;
-  color: #F4D4A4;
+  color: var(--gold-primary);
   position: relative;
 }
 
@@ -1758,9 +1846,9 @@ main {
 .branch-header { text-align: center; margin-bottom: 0.75rem; }
 
 .branch-name {
-  font-family: 'Cinzel Decorative', serif;
+  font-family: 'IM Fell English SC', serif;
   font-size: clamp(1.6rem, 4vw, 2.1rem);
-  color: #F4D4A4;
+  color: var(--gold-primary);
 }
 
 .branch-sub {
@@ -1829,7 +1917,7 @@ main {
 .entry-title {
   font-family: 'IM Fell English SC', serif;
   font-size: clamp(1rem, 1.8vw, 1.12rem);
-  color: #F4D4A4;
+  color: var(--gold-primary);
   flex: 1 1 auto;
 }
 
@@ -1972,7 +2060,7 @@ main {
     transparent 0%,
     var(--ember) 6%,
     var(--ember-hot) 30%,
-    #ffdd88 50%,
+    var(--gold-bright) 50%,
     var(--ember-hot) 70%,
     var(--ember) 94%,
     transparent 100%
@@ -1981,7 +2069,6 @@ main {
     0 0 8px var(--ember-hot),
     0 0 24px rgba(201, 74, 26, 0.55),
     0 0 50px rgba(180, 50, 10, 0.3);
-  animation: ember-pulse 2.5s ease-in-out infinite alternate;
 }
 
 .timeline-event {
@@ -1999,7 +2086,7 @@ main {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: radial-gradient(circle, #ffdd88 0%, var(--ember-hot) 45%, var(--ember) 100%);
+  background: radial-gradient(circle, var(--gold-bright) 0%, var(--ember-hot) 45%, var(--ember) 100%);
   border: 1px solid rgba(255, 221, 136, 0.6);
   display: flex;
   align-items: center;
@@ -2008,7 +2095,7 @@ main {
     0 0 10px var(--ember-hot),
     0 0 24px rgba(255, 140, 0, 0.7),
     0 0 50px rgba(201, 74, 26, 0.4);
-  animation: node-pulse 2.2s ease-in-out infinite alternate;
+  animation: node-pulse 4s ease-in-out infinite alternate;
   flex-shrink: 0;
 }
 
@@ -2020,6 +2107,12 @@ main {
     box-shadow: 0 0 16px var(--ember-hot), 0 0 40px rgba(255, 140, 0, 0.9), 0 0 80px rgba(201, 74, 26, 0.6);
   }
 }
+
+/* Stagger each node so they breathe independently, like actual embers */
+.timeline-event:nth-child(3) .timeline-node { animation-delay: -0.8s; }
+.timeline-event:nth-child(4) .timeline-node { animation-delay: -1.6s; }
+.timeline-event:nth-child(5) .timeline-node { animation-delay: -2.4s; }
+.timeline-event:nth-child(6) .timeline-node { animation-delay: -3.2s; }
 
 .node-numeral {
   font-family: 'Cinzel', serif;
@@ -2268,10 +2361,9 @@ main {
 
 /* Carved title */
 .tablet-title {
-  font-family: 'Cinzel Decorative', serif;
+  font-family: 'IM Fell English SC', serif;
   font-size: clamp(1.3rem, 3.5vw, 2rem);
-  font-weight: 900;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-align: center;
   color: rgba(190,165,115,0.92);
   /* Chiseled inset effect: dark shadow top-right, faint light bottom-left */
@@ -2353,10 +2445,9 @@ main {
 }
 
 .oath-creed {
-  font-family: 'Cinzel Decorative', serif;
+  font-family: 'IM Fell English SC', serif;
   font-size: clamp(1rem, 2.6vw, 1.45rem);
-  font-weight: 900;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   color: rgba(210,175,100,0.95);
   text-align: center;
   margin: 1rem 0 0.4rem;
@@ -2522,5 +2613,101 @@ main {
   .oath-shadows {
     padding-left: 0.9rem;
   }
+}
+
+/* ── Sword Cursor ─────────────────────────────────────────────────────────── */
+
+/* ── The Vigil (Streams) ─────────────────────────────────────────────────── */
+
+.streams-section { background: #060606; }
+
+.vigil-body {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.vigil-text {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  color: #e8dcc8;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+}
+
+.vigil-note {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 2rem;
+}
+
+.vigil-link {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ember-hot);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 140, 0, 0.3);
+  padding-bottom: 0.15rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.vigil-link:hover {
+  color: var(--bone);
+  border-color: var(--ember-hot);
+}
+
+@media (pointer: fine) {
+  body,
+  body * {
+    cursor: none !important;
+  }
+}
+
+#cursor-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  transition: opacity 0.2s;
+}
+
+#cursor-blade {
+  display: block;
+  transform-origin: 52px 52px;
+  filter: drop-shadow(0 0 2px rgba(255, 140, 0, 0.25));
+}
+
+@keyframes sword-swing {
+  0%   { transform: rotate(0deg); }
+  15%  { transform: rotate(-6deg); }
+  55%  { transform: rotate(52deg); }
+  75%  { transform: rotate(44deg); }
+  100% { transform: rotate(0deg); }
+}
+
+#cursor-blade.is-swinging {
+  animation: sword-swing 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.sword-slash {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  width: 70px;
+  height: 70px;
+  animation: slash-fade 0.42s ease-out forwards;
+}
+
+@keyframes slash-fade {
+  0%   { opacity: 1;    transform: scale(0.75); }
+  20%  { opacity: 0.85; transform: scale(1.0);  }
+  100% { opacity: 0;    transform: scale(1.25); }
 }
 

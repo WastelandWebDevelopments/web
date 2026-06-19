@@ -215,13 +215,20 @@ document.querySelectorAll('.codex-card .card-toggle').forEach(btn => {
     const isOpen = card.classList.contains('is-open');
 
     document.querySelectorAll('.codex-card.is-open').forEach(c => {
+      const b = c.querySelector('.card-body');
+      if (b.style.maxHeight === 'none') b.style.maxHeight = b.scrollHeight + 'px';
+      requestAnimationFrame(() => { b.style.maxHeight = '0'; });
       c.classList.remove('is-open');
-      c.querySelector('.card-body').style.maxHeight = '0';
     });
 
     if (!isOpen) {
       card.classList.add('is-open');
       body.style.maxHeight = body.scrollHeight + 'px';
+      body.addEventListener('transitionend', function onEnd(e) {
+        if (e.propertyName !== 'max-height') return;
+        if (card.classList.contains('is-open')) body.style.maxHeight = 'none';
+        body.removeEventListener('transitionend', onEnd);
+      });
       playWhoosh();
     }
   });
@@ -307,6 +314,32 @@ document.querySelectorAll('.entry-related-link').forEach(link => {
   });
 });
 
+// ── Hero entrance ─────────────────────────────────────────────────────────
+
+const heroEl = document.querySelector('.hero');
+if (heroEl) heroEl.classList.add('hero-staged');
+
+function revealHero() {
+  const steps = [
+    { sel: '.site-title',   delay: 500,  transform: 'translateY(0)' },
+    { sel: '.hero-divider', delay: 880,  transform: 'scaleX(1)'     },
+    { sel: '.tagline',      delay: 1180, transform: 'translateY(0)' },
+  ];
+  steps.forEach(({ sel, delay, transform }) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    setTimeout(() => {
+      el.style.transition = 'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1)';
+      el.style.opacity    = '1';
+      el.style.transform  = transform;
+    }, delay);
+  });
+
+  setTimeout(() => {
+    document.querySelector('.scroll-invite')?.classList.add('is-visible');
+  }, 1700);
+}
+
 // ── Oath of the Hollow ─────────────────────────────────────────────────────
 
 (function () {
@@ -331,5 +364,6 @@ document.querySelectorAll('.entry-related-link').forEach(link => {
     overlay.classList.remove('visible');
     overlay.classList.add('dismissed');
     setTimeout(() => overlay.remove(), 1400);
+    revealHero();
   });
 })();
