@@ -176,15 +176,11 @@
 
     <canvas id="sparks"></canvas>
 
-    <div class="char char-left" aria-hidden="true">
-      <img src="/img/monster.png" alt="" />
-    </div>
-    <div class="char char-right" aria-hidden="true">
-      <img src="/img/knight.png" alt="" />
-    </div>
-
     <nav class="site-nav">
       <div class="nav-inner">
+        <a href="/" class="nav-brand" aria-label="Lord of Embers">
+          <span class="nav-brand-wordmark">Lord of Embers</span>
+        </a>
         <ul class="nav-links">
           <li class="nav-item has-dropdown">
             <a href="#about">About</a>
@@ -237,12 +233,12 @@
             rel="noopener noreferrer"
             class="btn-cta btn-bonfire"
           >
-            <span class="btn-long">🔥 Join The Bonfire</span>
-            <span class="btn-short">🔥 Bonfire</span>
+            <span class="btn-long">Join The Bonfire</span>
+            <span class="btn-short">Bonfire</span>
           </a>
           <a href="#streams" class="btn-cta btn-watch">
-            <span class="btn-long">⚔️ Watch Live</span>
-            <span class="btn-short">⚔️ Live</span>
+            <span class="btn-long">Watch Live</span>
+            <span class="btn-short">Live</span>
           </a>
         </div>
         <button class="nav-toggle" aria-label="Toggle menu">
@@ -261,14 +257,44 @@
 
     <main>
       <section class="hero">
+        <div class="char char-left" aria-hidden="true">
+          <img src="/img/monster.png" alt="" />
+        </div>
+        <div class="char char-right" aria-hidden="true">
+          <img src="/img/knight.png" alt="" />
+        </div>
+        <div class="hero-bg-layers" aria-hidden="true">
+          <div class="hero-bg-vignette"></div>
+          <div class="hero-bg-ember"></div>
+        </div>
         <div class="hero-content">
+          <div class="hero-emblem" aria-hidden="true">
+            <svg width="36" height="52" viewBox="0 0 36 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 1C18 1 4 15 4 26C4 33.7 10.3 40 18 40C25.7 40 32 33.7 32 26C32 15 18 1 18 1Z" stroke="rgba(201,74,26,0.55)" stroke-width="1.2" fill="none"/>
+              <path d="M18 12C18 12 10 22 10 28C10 32.4 13.6 36 18 36C22.4 36 26 32.4 26 28C26 22 18 12 18 12Z" fill="rgba(201,74,26,0.18)"/>
+              <path d="M18 20C18 20 13 25 13 29C13 31.8 15.2 34 18 34C20.8 34 23 31.8 23 29C23 25 18 20 18 20Z" fill="rgba(255,140,0,0.42)"/>
+              <circle cx="18" cy="29" r="4" fill="rgba(255,200,80,0.55)"/>
+              <line x1="18" y1="40" x2="18" y2="52" stroke="rgba(201,74,26,0.35)" stroke-width="1.2"/>
+              <line x1="10" y1="48" x2="26" y2="48" stroke="rgba(201,74,26,0.35)" stroke-width="1.2"/>
+            </svg>
+          </div>
           <h1 class="site-title">Lord of Embers</h1>
           <div class="flame-divider hero-divider"></div>
           <p class="tagline">From the ashes we rise stronger</p>
+          <div class="hero-actions">
+            <a href="https://discord.gg/Hw8dDHbkh7" target="_blank" rel="noopener noreferrer" class="btn-hero btn-hero-primary">Enter the Bonfire</a>
+            <a href="#lore-terminology" class="btn-hero btn-hero-secondary">The Ember Codex ›</a>
+          </div>
         </div>
         <div class="scroll-invite" aria-hidden="true">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path
+              d="M6 9L12 15L18 9"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </div>
       </section>
@@ -276,6 +302,7 @@
       <section class="page-section" id="about">
         <div class="container">
           <header class="section-header">
+            <p class="section-kicker">The Covenant</p>
             <h2 class="section-title">About</h2>
             <div class="flame-divider"></div>
           </header>
@@ -884,6 +911,7 @@
               </div>
             </div>
 
+            <div class="codex-void-section">
             <div class="codex-adversary-header">
               <div class="adv-rule"></div>
               <h3 class="adv-title">The Nine Shadows</h3>
@@ -1133,6 +1161,8 @@
               </div>
             </div>
 
+            </div><!-- /.codex-void-section -->
+
             <!-- ── Covenant Stages ── -->
             <div class="codex-covenant-header">
               <div class="adv-rule"></div>
@@ -1310,6 +1340,7 @@
             <p class="section-kicker">In-Universe Records</p>
             <h2 class="section-title">The Chronicle</h2>
             <div class="flame-divider"></div>
+            <p class="chronicle-updated">Last record filed 2 days ago</p>
           </header>
 
           <div class="chronicle-filters">
@@ -1364,7 +1395,7 @@
                 </p>
               </div>
               <button class="chronicle-read" aria-expanded="false">
-                Read the Decree ›
+                Read the Decree
               </button>
             </article>
 
@@ -1415,7 +1446,7 @@
                 </p>
               </div>
               <button class="chronicle-read" aria-expanded="false">
-                Read the Dispatch ›
+                Read the Dispatch
               </button>
             </article>
 
@@ -1464,7 +1495,7 @@
                 </p>
               </div>
               <button class="chronicle-read" aria-expanded="false">
-                Read the Remembrance ›
+                Read the Remembrance
               </button>
             </article>
 
@@ -1519,17 +1550,35 @@
                 </p>
               </div>
               <button class="chronicle-read" aria-expanded="false">
-                Read the Record ›
+                Read the Record
               </button>
             </article>
           </div>
         </div>
       </section>
 
+      <!-- ── The Bonfire — Community Gather ──────────────────────────────── -->
+      <section class="page-section bonfire-gather-section" id="community">
+        <div class="container">
+          <div class="bonfire-gather">
+            <p class="gather-kicker">Where the Hollow Gather</p>
+            <h2 class="gather-title">The Bonfire</h2>
+            <div class="flame-divider gather-divider"></div>
+            <p class="gather-body">You are not here by accident. The Hollow find each other through the Long Night. This is where we hold the line — live, unscripted, and without pretense. Come as you are. Rise as something harder.</p>
+            <div class="gather-actions">
+              <a href="https://discord.gg/Hw8dDHbkh7" target="_blank" rel="noopener noreferrer" class="btn-gather btn-gather-primary">Enter the Bonfire →</a>
+              <p class="gather-note">1,247 Hollow and rising · Free · No performance required</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ── The Vigil ─────────────────────────────────────────────────── -->
       <section class="page-section streams-section" id="streams">
+        <div class="vigil-watermark" aria-hidden="true">◉</div>
         <div class="container">
           <header class="section-header">
+            <span class="vigil-kicker">Live Without Ceremony</span>
             <h2 class="section-title">The Vigil</h2>
             <div class="flame-divider"></div>
           </header>
@@ -1543,12 +1592,40 @@
               href="https://discord.gg/Hw8dDHbkh7"
               target="_blank"
               rel="noopener noreferrer"
-              class="vigil-link"
-            >Join the Discord to be notified ›</a>
+              class="btn-vigil"
+              >Join the Discord</a
+            >
+          </div>
+          <div class="vigil-close">
+            <div class="vigil-close-rule"></div>
+            <p class="vigil-close-creed">The Bonfire endures. The Hollow rise.</p>
           </div>
         </div>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="footer-flame"></div>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <p class="footer-brand-name">Lord of Embers</p>
+          <p class="footer-creed">The Bonfire endures. The Hollow rise.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="/#about">The Bonfire</a>
+          <a href="/#lore-terminology">Ember Codex</a>
+          <a href="/#chronicle">The Chronicle</a>
+          <a href="/forge">The Forge</a>
+          <a href="https://discord.gg/Hw8dDHbkh7" target="_blank" rel="noopener noreferrer">Discord</a>
+        </nav>
+        <div class="footer-oath">
+          <p class="footer-oath-text">From the ashes<br>we rise stronger.</p>
+        </div>
+      </div>
+      <div class="footer-base">
+        <p class="footer-copy">© 2026 Lord of Embers. All rights reserved.</p>
+      </div>
+    </footer>
 
     <script src="/js/sparks.js"></script>
     <script src="/js/ui.js"></script>

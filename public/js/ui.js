@@ -176,11 +176,6 @@ document.querySelectorAll('.chronicle-card').forEach(card => {
     const isOpen = card.classList.toggle('is-open');
     btn.setAttribute('aria-expanded', isOpen);
     body.style.maxHeight = isOpen ? body.scrollHeight + 'px' : '0';
-    if (isOpen) {
-      btn.textContent = btn.textContent.replace(/^Read/, 'Close').replace('›', '↑');
-    } else {
-      btn.textContent = btn.textContent.replace(/^Close/, 'Read').replace('↑', '›');
-    }
   });
 });
 
@@ -321,9 +316,11 @@ if (heroEl) heroEl.classList.add('hero-staged');
 
 function revealHero() {
   const steps = [
-    { sel: '.site-title',   delay: 500,  transform: 'translateY(0)' },
-    { sel: '.hero-divider', delay: 880,  transform: 'scaleX(1)'     },
-    { sel: '.tagline',      delay: 1180, transform: 'translateY(0)' },
+    { sel: '.hero-emblem',  delay: 280,  transform: 'translateY(0)' },
+    { sel: '.site-title',   delay: 520,  transform: 'translateY(0)' },
+    { sel: '.hero-divider', delay: 900,  transform: 'scaleX(1)'     },
+    { sel: '.tagline',      delay: 1200, transform: 'translateY(0)' },
+    { sel: '.hero-actions', delay: 1500, transform: 'translateY(0)' },
   ];
   steps.forEach(({ sel, delay, transform }) => {
     const el = document.querySelector(sel);
@@ -337,7 +334,7 @@ function revealHero() {
 
   setTimeout(() => {
     document.querySelector('.scroll-invite')?.classList.add('is-visible');
-  }, 1700);
+  }, 1900);
 }
 
 // ── Oath of the Hollow ─────────────────────────────────────────────────────

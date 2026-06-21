@@ -5,7 +5,7 @@
 }
 
 :root {
-  --bg:        #080604;
+  --bg:        #07060a;
   --surface:   #0e0b08;
   --ember:     #c94a1a;
   --ember-hot: #ff8c00;
@@ -19,6 +19,11 @@
   --gold-ember:   #ffb366;
   --gold-bright:  #ffdd88;
   --gold-dim:     rgba(244, 212, 164, 0.55);
+
+  /* Semantic text tiers — use these instead of raw hex */
+  --text-warm:  #e8dcc8;   /* warm body copy — declarations, lore text    */
+  --text-body:  #d4c4a8;   /* standard body — card defs, notes, forge text */
+  --text-mid:   #c4b49a;   /* secondary body — excerpts, supporting copy   */
 }
 
 html {
@@ -67,27 +72,26 @@ main {
 /* ── Fixed characters ── */
 
 .char {
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
   user-select: none;
-  opacity: 0.55;
 }
 
-.char-left  { left: -2vw; }
-.char-right { right: 17px; transform: translateY(6%); opacity: 0.75; }
+.char-left  { left: 0; opacity: 0.42; }
+.char-right { right: 0; opacity: 0.62; }
 
 .char img {
   display: block;
   width: auto;
   object-fit: contain;
   object-position: bottom;
-  filter: drop-shadow(0 0 4px rgba(201, 74, 26, 0.2));
+  filter: brightness(1.35) drop-shadow(0 0 6px rgba(201, 74, 26, 0.22));
 }
 
-.char-left img  { height: 92vh; }
-.char-right img { height: 46vh; }
+.char-left img  { height: 72vh; }
+.char-right img { height: 44vh; }
 
 @media (max-width: 768px) {
   .char { display: none; }
@@ -185,7 +189,7 @@ main {
     0 0 50px rgba(201, 74, 26, 0.7),
     0 0 100px rgba(180, 50, 10, 0.4),
     0 4px 8px rgba(0, 0, 0, 1);
-  animation: title-flicker 7s ease-in-out infinite alternate;
+  animation: title-flicker 14s ease-in-out infinite alternate;
 }
 
 @keyframes title-flicker {
@@ -454,18 +458,7 @@ main {
 #chronicle    { padding: 7rem 2rem; }
 #lore-timeline { padding: 5rem 2rem; }
 
-/* Warm/cool section temperature — alternating so the eye gets a reset */
-#about {
-  background:
-    radial-gradient(ellipse at 50% 110%, rgba(201, 74, 26, 0.05) 0%, transparent 55%),
-    #080604;
-}
-
-#chronicle {
-  background:
-    radial-gradient(ellipse at 50% 110%, rgba(201, 74, 26, 0.04) 0%, transparent 55%),
-    #070707;
-}
+/* Section backgrounds defined later in the file with the unified arc */
 
 /* ── Chronicle section header — breaks the center-lock pattern ── */
 
@@ -489,7 +482,7 @@ main {
 }
 
 .section-alt {
-  background: #080402;
+  background: #07060a;
 }
 
 .container {
@@ -512,10 +505,10 @@ main {
   font-size: clamp(2rem, 5vw, 3.2rem);
   color: var(--bone);
   text-shadow:
-    0 0 12px rgba(255, 140, 0, 0.7),
-    0 0 30px rgba(201, 74, 26, 0.5),
-    0 0 60px rgba(180, 50, 10, 0.3),
-    0 3px 6px rgba(0, 0, 0, 1);
+    0 0 12px rgba(220, 110, 30, 0.50),
+    0 0 30px rgba(201,  74, 26, 0.38),
+    0 0 60px rgba(180,  50, 10, 0.20),
+    0 3px 6px rgba(0,    0,  0, 1);
 }
 
 .subsection-title {
@@ -582,12 +575,14 @@ main {
 
 .bonfire-body {
   text-align: left;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .bonfire-para {
   font-family: 'Crimson Text', serif;
   font-size: clamp(1rem, 1.8vw, 1.18rem);
-  color: #e8dcc8;
+  color: var(--text-warm);
   line-height: 1.9;
   margin-bottom: 1.5rem;
   opacity: 0;
@@ -609,7 +604,7 @@ main {
 .bonfire-highlight {
   font-family: 'Crimson Text', serif;
   font-size: clamp(1.05rem, 2vw, 1.28rem);
-  color: #ffb366;
+  color: var(--gold-ember);
   line-height: 1.8;
   margin-bottom: 1.5rem;
   font-style: italic;
@@ -634,7 +629,7 @@ main {
 }
 
 .bonfire-tagline.bonfire-visible {
-  animation: bonfire-pulse 3s ease-in-out infinite alternate;
+  animation: bonfire-pulse 3s ease-in-out 3;
 }
 
 @keyframes bonfire-pulse {
@@ -651,7 +646,7 @@ main {
 }
 
 .sig-rule {
-  width: 40%;
+  width: 55%;
   height: 1px;
   margin: 0 auto 1.5rem;
   background: linear-gradient(90deg, transparent, var(--ember), transparent);
@@ -671,7 +666,9 @@ main {
   font-family: 'IM Fell English SC', serif;
   font-size: clamp(0.95rem, 1.8vw, 1.3rem);
   color: var(--gold-warm);
-  text-shadow: 0 0 10px rgba(255, 140, 40, 0.6);
+  text-shadow:
+    0 0 10px rgba(255, 140, 40, 0.65),
+    0 0 28px rgba(201, 74, 26, 0.35);
   letter-spacing: 0.1em;
 }
 
@@ -681,37 +678,6 @@ main {
 }
 
 /* ── About ── */
-
-.about-intro {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 4rem;
-  align-items: start;
-  margin-bottom: 3.5rem;
-}
-
-.about-portrait {
-  position: sticky;
-  top: 80px;
-}
-
-.placeholder-portrait {
-  width: 100%;
-  aspect-ratio: 3/4;
-  background: rgba(201, 74, 26, 0.04);
-  border: 1px solid rgba(201, 74, 26, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ember);
-  font-family: 'Cinzel', serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  box-shadow:
-    0 0 20px rgba(201, 74, 26, 0.08),
-    inset 0 0 30px rgba(201, 74, 26, 0.03);
-}
 
 .mission-section {
   border-left: none;
@@ -1060,7 +1026,7 @@ main {
 /* ── Ember Codex ──────────────────────────────────────────────────────────── */
 
 .codex-section {
-  background: #080808;
+  background: #07060a;
   position: relative;
   overflow: hidden;
 }
@@ -1082,8 +1048,8 @@ main {
   letter-spacing: 0.12em;
   color: var(--gold-primary);
   text-shadow:
-    0 0 10px rgba(255, 140, 50, 0.6),
-    0 0 20px rgba(255, 90, 20, 0.4);
+    0 0 10px rgba(210, 100, 35, 0.42),
+    0 0 22px rgba(190,  70, 18, 0.28);
   margin-bottom: 0.75rem;
 }
 
@@ -1132,10 +1098,10 @@ main {
 }
 
 .card-term-name {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(0.8rem, 1.3vw, 0.92rem);
+  font-family: 'IM Fell English SC', serif;
+  font-size: clamp(0.98rem, 1.5vw, 1.1rem);
   color: var(--gold-primary);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.03em;
   flex: 1;
 }
 
@@ -1178,15 +1144,30 @@ main {
 
 /* Shared shadow card styling */
 .codex-card.is-shadow {
-  border-color: rgba(80, 60, 120, 0.3);
-  box-shadow: 0 0 20px rgba(60, 40, 100, 0.1);
-  background: rgba(10, 8, 16, 0.97);
+  border-color: rgba(60, 38, 110, 0.5);
+  border-left: 2px solid rgba(80, 40, 150, 0.65);
+  box-shadow:
+    0 0 24px rgba(15, 6, 42, 0.7),
+    inset 0 0 30px rgba(0, 0, 0, 0.45);
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(38, 12, 85, 0.22) 0%, transparent 65%),
+    rgba(6, 4, 12, 0.98);
 }
 
 .codex-card.is-shadow:hover {
-  border-color: rgba(120, 80, 180, 0.5);
-  box-shadow: 0 0 28px rgba(80, 50, 140, 0.2);
-  background: rgba(14, 10, 22, 0.99);
+  border-color: rgba(100, 58, 170, 0.65);
+  border-left-color: rgba(120, 70, 200, 0.8);
+  box-shadow:
+    0 0 38px rgba(35, 10, 90, 0.4),
+    inset 0 0 20px rgba(25, 6, 55, 0.25);
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(50, 18, 110, 0.28) 0%, transparent 65%),
+    rgba(8, 5, 16, 0.99);
+}
+
+.codex-card.is-shadow .card-term-name {
+  color: #c8b4e4;
+  text-shadow: 0 0 10px rgba(140, 75, 210, 0.28);
 }
 
 .codex-adversary-header {
@@ -1266,7 +1247,7 @@ main {
 .card-tagline {
   font-family: 'Crimson Text', serif;
   font-size: 1rem;
-  color: #ffb366;
+  color: var(--gold-ember);
   font-style: italic;
   margin-bottom: 0.65rem;
   line-height: 1.65;
@@ -1275,7 +1256,7 @@ main {
 .card-def {
   font-family: 'Crimson Text', serif;
   font-size: 0.95rem;
-  color: #d4c4a8;
+  color: var(--text-body);
   line-height: 1.8;
   margin-bottom: 0.4rem;
 }
@@ -1302,7 +1283,7 @@ main {
   grid-column: 1 / -1;
   border-color: rgba(216,123,52,0.35);
   background: rgba(12,9,6,0.97);
-  animation: artifactBreath 5s ease-in-out infinite;
+  box-shadow: 0 0 22px rgba(216,123,52,0.2), inset 0 0 40px rgba(0,0,0,0.3);
 }
 
 .codex-card.is-artifact:hover {
@@ -1322,8 +1303,8 @@ main {
 .codex-card[data-classification="relic-blade"] .card-badge { color: #D87B34; }
 
 .codex-card.is-artifact .card-term-name {
-  font-size: clamp(0.92rem, 1.6vw, 1.1rem);
-  letter-spacing: 0.1em;
+  font-size: clamp(1.1rem, 1.9vw, 1.35rem);
+  letter-spacing: 0.05em;
 }
 
 @keyframes artifactBreath {
@@ -1411,11 +1392,12 @@ main {
 /* ── Shadow Interaction (Ashen Oath response inside each Shadow card) ──────── */
 
 .shadow-interaction {
-  margin-top: 1rem;
-  padding: 0.7rem 1rem;
-  background: rgba(216,123,52,0.04);
-  border-left: 2px solid rgba(216,123,52,0.22);
+  margin-top: 1.2rem;
+  padding: 0.8rem 1rem;
+  background: rgba(201, 74, 26, 0.07);
+  border-left: 2px solid rgba(201, 74, 26, 0.55);
   border-radius: 0 4px 4px 0;
+  box-shadow: inset 0 0 12px rgba(201, 74, 26, 0.04);
 }
 
 .interaction-label {
@@ -1424,16 +1406,16 @@ main {
   font-size: 0.6rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(216,123,52,0.5);
-  margin-bottom: 0.4rem;
+  color: rgba(230, 140, 60, 0.75);
+  margin-bottom: 0.45rem;
 }
 
 .interaction-text {
   font-family: 'Crimson Text', serif;
   font-style: italic;
   font-size: 0.95rem;
-  color: rgba(200,175,135,0.68);
-  line-height: 1.65;
+  color: rgba(220, 195, 150, 0.78);
+  line-height: 1.68;
   margin: 0;
 }
 
@@ -1544,7 +1526,7 @@ main {
 .tablet-quote p {
   font-family: 'Cinzel', serif;
   font-size: clamp(0.82rem, 1.4vw, 0.96rem);
-  color: #d4b87a;
+  color: var(--gold-muted);
   line-height: 2.3;
   letter-spacing: 0.08em;
   text-shadow:
@@ -1567,12 +1549,20 @@ main {
 @media (max-width: 768px) {
   .codex-grid { grid-template-columns: 1fr; }
   .codex-tablet { padding: 2rem 1.5rem; }
-  .about-intro { grid-template-columns: 1fr; }
 }
 
 /* ── The Chronicle ────────────────────────────────────────────────────────── */
 
-.chronicle-section { background: #070707; }
+.chronicle-section { background: #07060a; }
+
+.chronicle-updated {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--ember);
+  opacity: 0.65;
+  margin-top: 0.6rem;
+}
 
 .chronicle-subtitle {
   font-family: 'Crimson Text', serif;
@@ -1586,20 +1576,20 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 3rem;
 }
 
 .cf-btn {
   font-family: 'Cinzel', serif;
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ash);
   background: none;
   border: 1px solid rgba(154, 128, 112, 0.25);
   border-radius: 2px;
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1.1rem;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
@@ -1675,9 +1665,8 @@ main {
 .chronicle-excerpt {
   font-family: 'Crimson Text', serif;
   font-size: 0.98rem;
-  color: #c4b49a;
+  color: var(--text-mid);
   line-height: 1.8;
-  flex: 1;
 }
 
 .chronicle-body {
@@ -1685,23 +1674,21 @@ main {
   overflow: hidden;
   opacity: 0;
   transition:
-    max-height 0.5s ease-out,
-    opacity 0.4s ease-out;
+    max-height 0.12s ease,
+    opacity 0.45s ease-out;
   border-top: 1px solid transparent;
-  margin-top: 0;
 }
 
 .chronicle-card.is-open .chronicle-body {
   opacity: 1;
-  border-top-color: rgba(201,74,26,0.1);
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
+  border-top-color: rgba(201, 74, 26, 0.22);
+  padding-top: 0.85rem;
 }
 
 .chronicle-body p {
   font-family: 'Crimson Text', serif;
   font-size: 1rem;
-  color: rgba(196,180,154,0.82);
+  color: var(--text-warm);
   line-height: 1.85;
   margin-bottom: 0.85rem;
 }
@@ -1729,6 +1716,16 @@ main {
   padding: 0;
 }
 
+.chronicle-read::after {
+  content: ' ›';
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.chronicle-card.is-open .chronicle-read::after {
+  transform: rotate(90deg);
+}
+
 .chronicle-card:hover .chronicle-read { color: var(--ember-hot); }
 .chronicle-card.is-open .chronicle-read { color: var(--ember-hot); }
 
@@ -1741,7 +1738,7 @@ main {
 .forge-hero {
   padding: 7rem 1.5rem 3.5rem;
   text-align: center;
-  background: radial-gradient(circle at 50% 0%, rgba(201,74,26,0.08), transparent 60%), #0a0807;
+  background: radial-gradient(circle at 50% 0%, rgba(201,74,26,0.08), transparent 60%), #07060a;
 }
 
 .forge-hero-title {
@@ -1763,7 +1760,7 @@ main {
 .forge-hero-note {
   font-family: 'Crimson Text', serif;
   font-size: 1rem;
-  color: #c4b49a;
+  color: var(--text-mid);
   line-height: 1.85;
   max-width: 660px;
   margin: 1.75rem auto 0;
@@ -1772,7 +1769,7 @@ main {
 /* Path selection tiles */
 
 .path-select {
-  background: #070707;
+  background: #07060a;
   padding: 1rem 1.5rem 4rem;
 }
 
@@ -1815,10 +1812,13 @@ main {
 .path-tile:hover::before { opacity: 1; }
 
 .path-glyph {
-  font-size: 1.6rem;
-  color: var(--ember);
+  font-family: 'IM Fell English SC', serif;
+  font-size: 1.5rem;
+  color: var(--gold-muted);
+  text-shadow: 0 0 10px rgba(201, 74, 26, 0.35);
   margin-bottom: 0.6rem;
   position: relative;
+  letter-spacing: 0.08em;
 }
 
 .path-name {
@@ -1840,8 +1840,8 @@ main {
 
 /* Branch sections */
 
-.branch-section { background: #0a0807; padding: 4rem 1.5rem; }
-.branch-section:nth-of-type(even) { background: #070707; }
+.branch-section { background: #07060a; padding: 4rem 1.5rem; }
+.branch-section:nth-of-type(even) { background: #07060a; }
 
 .branch-header { text-align: center; margin-bottom: 0.75rem; }
 
@@ -1940,7 +1940,7 @@ main {
 .entry-badge.diff-initiate  { color: rgba(154,128,112,0.85); }
 .entry-badge.diff-ember     { color: #D99145; }
 .entry-badge.diff-burned    { color: #C9472B; }
-.entry-badge.diff-ascendant { color: #F4D4A4; }
+.entry-badge.diff-ascendant { color: var(--gold-primary); }
 
 .entry-chevron {
   font-size: 1.1rem;
@@ -1986,7 +1986,7 @@ main {
 .entry-content {
   font-family: 'Crimson Text', serif;
   font-size: 0.98rem;
-  color: rgba(196,180,154,0.88);
+  color: var(--text-warm);
   line-height: 1.85;
   margin-bottom: 1rem;
   border-top: 1px solid rgba(201,74,26,0.1);
@@ -2028,7 +2028,7 @@ main {
 /* ── Lore Timeline ────────────────────────────────────────────────────────── */
 
 .timeline-section {
-  background: #060606;
+  background: #07060a;
   position: relative;
 }
 
@@ -2093,26 +2093,10 @@ main {
   justify-content: center;
   box-shadow:
     0 0 10px var(--ember-hot),
-    0 0 24px rgba(255, 140, 0, 0.7),
-    0 0 50px rgba(201, 74, 26, 0.4);
-  animation: node-pulse 4s ease-in-out infinite alternate;
+    0 0 24px rgba(255, 140, 0, 0.65),
+    0 0 48px rgba(201, 74, 26, 0.35);
   flex-shrink: 0;
 }
-
-@keyframes node-pulse {
-  from {
-    box-shadow: 0 0 10px var(--ember-hot), 0 0 24px rgba(255, 140, 0, 0.7), 0 0 50px rgba(201, 74, 26, 0.4);
-  }
-  to {
-    box-shadow: 0 0 16px var(--ember-hot), 0 0 40px rgba(255, 140, 0, 0.9), 0 0 80px rgba(201, 74, 26, 0.6);
-  }
-}
-
-/* Stagger each node so they breathe independently, like actual embers */
-.timeline-event:nth-child(3) .timeline-node { animation-delay: -0.8s; }
-.timeline-event:nth-child(4) .timeline-node { animation-delay: -1.6s; }
-.timeline-event:nth-child(5) .timeline-node { animation-delay: -2.4s; }
-.timeline-event:nth-child(6) .timeline-node { animation-delay: -3.2s; }
 
 .node-numeral {
   font-family: 'Cinzel', serif;
@@ -2187,69 +2171,7 @@ main {
   line-height: 1.7;
 }
 
-/* ── Timeline mobile — vertical ── */
-
-@media (max-width: 768px) {
-  .timeline-wrap { overflow-x: visible; }
-
-  .timeline {
-    flex-direction: column;
-    min-width: unset;
-    min-height: unset;
-    padding: 0 0 0 2.5rem;
-    gap: 0;
-    margin: 1rem 0 2rem;
-  }
-
-  .timeline-spine {
-    left: 1rem;
-    top: 0;
-    bottom: 0;
-    right: auto;
-    width: 2px;
-    height: auto;
-    transform: none;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      var(--ember) 6%,
-      var(--ember-hot) 50%,
-      var(--ember) 94%,
-      transparent 100%
-    );
-  }
-
-  .timeline-event {
-    height: auto;
-    width: 100%;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 1.5rem 0;
-    align-items: flex-start;
-  }
-
-  .timeline-node {
-    position: relative;
-    left: -1rem;
-    flex-shrink: 0;
-    margin-right: 1.25rem;
-  }
-
-  .timeline-card,
-  .timeline-card.above,
-  .timeline-card.below {
-    position: relative;
-    left: auto;
-    top: auto;
-    bottom: auto;
-    transform: none;
-    width: 100%;
-    max-width: 400px;
-  }
-
-  .timeline-card.above::after,
-  .timeline-card.below::before { display: none; }
-}
+/* Timeline mobile override removed — vertical layout is now the default */
 
 /* ── Oath of the Hollow ──────────────────────────────────────────────────── */
 
@@ -2619,7 +2541,7 @@ main {
 
 /* ── The Vigil (Streams) ─────────────────────────────────────────────────── */
 
-.streams-section { background: #060606; }
+.streams-section { background: #07060a; }
 
 .vigil-body {
   max-width: 560px;
@@ -2630,7 +2552,7 @@ main {
 .vigil-text {
   font-family: 'Crimson Text', serif;
   font-size: clamp(1rem, 1.8vw, 1.18rem);
-  color: #e8dcc8;
+  color: var(--text-warm);
   line-height: 1.9;
   margin-bottom: 1.5rem;
 }
@@ -2659,6 +2581,26 @@ main {
 .vigil-link:hover {
   color: var(--bone);
   border-color: var(--ember-hot);
+}
+
+.vigil-close {
+  text-align: center;
+  padding-top: 4rem;
+}
+
+.vigil-close-rule {
+  width: 120px;
+  height: 1px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(90deg, transparent, rgba(201, 74, 26, 0.4), transparent);
+}
+
+.vigil-close-creed {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(138, 114, 101, 0.45);
 }
 
 @media (pointer: fine) {
@@ -2709,5 +2651,998 @@ main {
   0%   { opacity: 1;    transform: scale(0.75); }
   20%  { opacity: 0.85; transform: scale(1.0);  }
   100% { opacity: 0;    transform: scale(1.25); }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   PREMIUM REDESIGN — Nav · Hero · Sections · Community · Footer
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Nav brand wordmark ─────────────────────────────────────────── */
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+  margin-right: 2rem;
+  height: 100%;
+}
+
+.nav-brand-wordmark {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 1.22rem;
+  letter-spacing: 0.04em;
+  color: var(--gold-warm);
+  text-shadow:
+    0 0 10px rgba(255, 140, 40, 0.6),
+    0 0 28px rgba(201, 74, 26, 0.3);
+  line-height: 1;
+  white-space: nowrap;
+  transition: text-shadow 0.3s ease;
+}
+
+.nav-brand:hover .nav-brand-wordmark {
+  text-shadow:
+    0 0 14px rgba(255, 180, 60, 0.9),
+    0 0 40px rgba(201, 74, 26, 0.55);
+}
+
+@media (max-width: 1024px) {
+  .nav-brand {
+    order: 0;
+    flex: 1;
+    margin-right: 0;
+    height: 60px;
+  }
+  .nav-brand-wordmark {
+    font-size: 1rem;
+  }
+}
+
+/* ── Hero — premium rebuild ─────────────────────────────────────── */
+
+.hero {
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 100%, rgba(38, 10, 82, 0.32) 0%, transparent 65%),
+    radial-gradient(ellipse 100% 25% at 50% 0%, rgba(0, 0, 0, 0.55) 0%, transparent 55%),
+    linear-gradient(180deg, #04030a 0%, #060408 50%, #080508 100%);
+}
+
+.hero-bg-layers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-bg-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 65% 90% at 0% 50%, rgba(0, 0, 0, 0.7) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 90% at 100% 50%, rgba(0, 0, 0, 0.7) 0%, transparent 60%);
+}
+
+.hero-bg-ember {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background:
+    linear-gradient(to bottom, transparent 0%, rgba(201, 74, 26, 0.12) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  gap: 1.75rem;
+}
+
+/* ── Hero emblem ─────────────────────────────────────────────────── */
+
+.hero-emblem {
+  display: flex;
+  justify-content: center;
+  margin-bottom: -0.4rem;
+  filter:
+    drop-shadow(0 0 8px rgba(201, 74, 26, 0.55))
+    drop-shadow(0 0 22px rgba(255, 100, 20, 0.3));
+  opacity: 0.8;
+}
+
+/* ── Hero entrance — staged additions ───────────────────────────── */
+
+.hero-staged .hero-emblem {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.hero-staged .hero-actions {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+/* ── Hero CTA buttons ────────────────────────────────────────────── */
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: -0.25rem;
+}
+
+.btn-hero {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.72rem, 1.3vw, 0.88rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid;
+  transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-hero-primary {
+  color: var(--bone);
+  border-color: rgba(201, 74, 26, 0.65);
+  background: rgba(201, 74, 26, 0.1);
+  padding: 0.9rem 2.8rem;
+  box-shadow:
+    0 0 20px rgba(201, 74, 26, 0.15),
+    inset 0 0 16px rgba(201, 74, 26, 0.05);
+}
+
+.btn-hero-primary:hover {
+  color: #ffffff;
+  border-color: rgba(255, 140, 0, 0.85);
+  background: rgba(201, 74, 26, 0.2);
+  box-shadow:
+    0 0 36px rgba(255, 120, 20, 0.4),
+    0 0 72px rgba(201, 74, 26, 0.2),
+    inset 0 0 20px rgba(201, 74, 26, 0.1);
+}
+
+.btn-hero-secondary {
+  color: rgba(138, 114, 101, 0.72);
+  border-color: rgba(138, 114, 101, 0.2);
+  background: transparent;
+  padding: 0.58rem 1.75rem;
+  font-size: clamp(0.62rem, 1.1vw, 0.74rem);
+  letter-spacing: 0.22em;
+}
+
+.btn-hero-secondary:hover {
+  color: var(--parchment);
+  border-color: rgba(138, 114, 101, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 600px) {
+  .hero-actions {
+    width: 100%;
+    max-width: 300px;
+  }
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ── Section backgrounds — seam-matched temperature arc ─────────────
+   Each section's top gradient value matches the adjacent section's
+   bottom value so colour bleeds continuously down the page.
+   ──────────────────────────────────────────────────────────────────── */
+
+#about {
+  background:
+    linear-gradient(to bottom, rgba(201, 74, 26, 0.12) 0%, transparent 38%),
+    linear-gradient(to top,    rgba(201, 74, 26, 0.14) 0%, transparent 42%),
+    #07060a;
+}
+
+#lore-terminology {
+  background:
+    linear-gradient(to bottom, rgba(201, 74, 26, 0.14) 0%, transparent 38%),
+    linear-gradient(to top,    rgba(201, 74, 26, 0.06) 0%, transparent 40%),
+    #07060a;
+}
+
+#lore-timeline {
+  background:
+    linear-gradient(to bottom, rgba(201, 74, 26, 0.06) 0%, transparent 40%),
+    linear-gradient(to top,    rgba(190, 118, 32, 0.08) 0%, transparent 42%),
+    #07060a;
+}
+
+#chronicle {
+  background:
+    linear-gradient(to bottom, rgba(190, 118, 32, 0.08) 0%, transparent 38%),
+    linear-gradient(to top,    rgba(190, 118, 32, 0.14) 0%, transparent 44%),
+    #07060a;
+}
+
+/* ── The Bonfire — Community Gather section ──────────────────────── */
+
+.bonfire-gather-section {
+  background:
+    linear-gradient(to bottom, rgba(190, 118, 32, 0.14) 0%, transparent 38%),
+    linear-gradient(to top,    rgba(201,  74, 26, 0.26) 0%, transparent 50%),
+    #07060a;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+  position: relative;
+}
+
+.bonfire-gather-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(190, 118, 32, 0.06) 20%,
+    rgba(201, 74, 26, 0.08) 50%,
+    rgba(190, 118, 32, 0.06) 80%,
+    transparent 100%
+  );
+}
+
+.bonfire-gather {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.gather-kicker {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ember);
+  opacity: 0.9;
+  margin-bottom: 1.1rem;
+  display: block;
+}
+
+.gather-title {
+  font-family: 'IM Fell English SC', serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  color: var(--bone);
+  text-shadow:
+    0 0 14px rgba(230, 110, 25, 0.62),
+    0 0 36px rgba(201,  74, 26, 0.44),
+    0 0 72px rgba(180,  50, 10, 0.22),
+    0 4px 8px rgba(0,    0,  0, 1);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.gather-divider {
+  width: 50% !important;
+  margin: 0 auto 2.5rem !important;
+}
+
+.gather-body {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(1.05rem, 1.9vw, 1.22rem);
+  color: var(--text-body);
+  line-height: 1.9;
+  margin-bottom: 2.75rem;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gather-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.btn-gather {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1rem 3rem;
+  border: 1px solid;
+  transition: all 0.3s ease;
+}
+
+.btn-gather-primary {
+  color: var(--bone);
+  border-color: rgba(201, 74, 26, 0.75);
+  background: rgba(201, 74, 26, 0.14);
+  box-shadow:
+    0 0 28px rgba(201, 74, 26, 0.22),
+    inset 0 0 20px rgba(201, 74, 26, 0.07);
+}
+
+.btn-gather-primary:hover {
+  color: #ffffff;
+  border-color: rgba(255, 140, 0, 0.9);
+  background: rgba(201, 74, 26, 0.26);
+  box-shadow:
+    0 0 50px rgba(255, 120, 20, 0.5),
+    0 0 100px rgba(201, 74, 26, 0.25),
+    inset 0 0 28px rgba(201, 74, 26, 0.15);
+}
+
+.gather-note {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(138, 114, 101, 0.52);
+  margin-top: 0;
+}
+
+/* ── The Vigil — expanded visual treatment ──────────────────────── */
+
+.streams-section {
+  background:
+    linear-gradient(to bottom, rgba(201, 74, 26, 0.24) 0%, transparent 45%),
+    linear-gradient(to top,    rgba(0,   0,  0,  0.10) 0%, transparent 55%),
+    #07060a;
+  padding: 8rem 2rem;
+  position: relative;
+}
+
+.streams-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(138, 114, 101, 0.1) 30%,
+    rgba(180, 130, 80, 0.16) 50%,
+    rgba(138, 114, 101, 0.1) 70%,
+    transparent 100%
+  );
+}
+
+.vigil-kicker {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.63rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ember);
+  opacity: 0.7;
+  margin-bottom: 0.65rem;
+}
+
+/* ── Site footer ────────────────────────────────────────────────── */
+
+.site-footer {
+  position: relative;
+  z-index: 3;
+  background:
+    linear-gradient(to bottom, rgba(160, 75, 15, 0.05) 0%, transparent 55%),
+    #050404;
+  border-top: 1px solid rgba(201, 74, 26, 0.1);
+  padding: 4rem 2rem 2.5rem;
+}
+
+.footer-flame {
+  height: 1px;
+  margin-bottom: 3.5rem;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 74, 26, 0.28) 15%,
+    rgba(255, 140, 0, 0.5) 35%,
+    var(--gold-bright) 50%,
+    rgba(255, 140, 0, 0.5) 65%,
+    rgba(201, 74, 26, 0.28) 85%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 5px rgba(255, 140, 0, 0.45),
+    0 0 16px rgba(201, 74, 26, 0.28),
+    0 0 36px rgba(201, 74, 26, 0.12);
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto 3.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.footer-brand-name {
+  font-family: 'IM Fell English SC', serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.55rem);
+  color: var(--gold-warm);
+  text-shadow:
+    0 0 10px rgba(255, 140, 40, 0.5),
+    0 0 25px rgba(201, 74, 26, 0.3);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.footer-creed {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.98rem;
+  font-style: italic;
+  color: rgba(138, 114, 101, 0.68);
+  line-height: 1.65;
+  max-width: 240px;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  padding-top: 0.2rem;
+}
+
+.footer-nav a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.67rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(138, 114, 101, 0.62);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.footer-nav a:hover {
+  color: var(--ember-hot);
+}
+
+.footer-oath {
+  text-align: right;
+  padding-top: 0.2rem;
+}
+
+.footer-oath-text {
+  font-family: 'IM Fell English SC', serif;
+  font-size: clamp(0.88rem, 1.5vw, 1.12rem);
+  color: rgba(138, 114, 101, 0.52);
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+}
+
+.footer-base {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(138, 114, 101, 0.08);
+  text-align: center;
+}
+
+.footer-copy {
+  font-family: 'Cinzel', serif;
+  font-size: 0.57rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(138, 114, 101, 0.28);
+}
+
+@media (max-width: 768px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  .footer-oath { text-align: center; }
+  .footer-creed { max-width: 100%; }
+  .footer-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+  }
+}
+
+/* ── Codex adversary header — void atmosphere ────────────────────── */
+
+.codex-adversary-header {
+  position: relative;
+}
+
+.codex-adversary-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 50%, rgba(55, 22, 95, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.codex-covenant-header {
+  position: relative;
+}
+
+.codex-covenant-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 50%, rgba(120, 80, 20, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Chronicle cards — depth hover ──────────────────────────────── */
+
+.chronicle-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.chronicle-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 120, 40, 0.025) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.chronicle-card:hover::before { opacity: 1; }
+
+/* ── Forge hero — more cinematic ────────────────────────────────── */
+
+.forge-hero {
+  background:
+    radial-gradient(ellipse 80% 65% at 50% 110%, rgba(201, 74, 26, 0.2) 0%, transparent 65%),
+    radial-gradient(ellipse 100% 30% at 50% 0%, rgba(0, 0, 0, 0.65) 0%, transparent 60%),
+    #07060a;
+  padding: 8rem 1.5rem 4.5rem;
+}
+
+.forge-hero-title {
+  text-shadow:
+    0 0 20px rgba(216, 123, 52, 0.5),
+    0 0 50px rgba(201, 74, 26, 0.3),
+    0 4px 8px rgba(0, 0, 0, 1);
+}
+
+/* Timeline height overrides removed — vertical layout has no fixed heights */
+
+/* ── Path tiles — stronger presence ─────────────────────────────── */
+
+.path-tile:hover {
+  border-color: rgba(216, 123, 52, 0.58);
+  box-shadow: 0 0 32px rgba(201, 74, 26, 0.18), 0 4px 24px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4px);
+}
+
+/* ── Branch sections — alternating atmospheric accents ───────────── */
+
+.branch-section:nth-of-type(odd) {
+  background:
+    linear-gradient(to bottom, rgba(201, 74, 26, 0.08) 0%, transparent 40%),
+    linear-gradient(to top,    rgba(201, 74, 26, 0.08) 0%, transparent 40%),
+    #07060a;
+}
+
+.branch-section:nth-of-type(even) {
+  background:
+    linear-gradient(to bottom, rgba(50, 30, 80, 0.07) 0%, transparent 40%),
+    linear-gradient(to top,    rgba(50, 30, 80, 0.07) 0%, transparent 40%),
+    #07060a;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SECTION REWORKS — Timeline · Chronicle · Nine Shadows · Vigil
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Lore Timeline — Vertical layout ───────────────────────────── */
+
+.timeline-wrap {
+  overflow-x: visible;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: unset;
+  min-height: unset;
+  padding: 1rem 0 2rem 4rem;
+  margin: 0;
+  gap: 0;
+}
+
+.timeline-spine {
+  position: absolute;
+  left: 1.5rem;
+  top: 2rem;
+  bottom: 2rem;
+  right: auto;
+  width: 2px;
+  height: auto;
+  transform: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--ember) 8%,
+    var(--ember-hot) 35%,
+    var(--gold-bright) 50%,
+    var(--ember-hot) 65%,
+    var(--ember) 92%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 8px var(--ember-hot),
+    0 0 24px rgba(255, 140, 0, 0.55),
+    0 0 50px rgba(180, 50, 10, 0.3);
+}
+
+.timeline-event {
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  padding: 2.5rem 0 2.5rem 2.5rem;
+  flex: unset;
+}
+
+.timeline-event:not(:last-child) {
+  border-bottom: 1px solid rgba(201, 74, 26, 0.07);
+}
+
+.timeline-node {
+  position: absolute;
+  left: calc(-2.5rem - 18px);
+  top: 2.4rem;
+  z-index: 3;
+  flex-shrink: 0;
+  margin-right: 0;
+  animation: none;
+}
+
+/* Kill connector lines — not needed in vertical layout */
+.timeline-card.above::after,
+.timeline-card.below::before {
+  display: none;
+}
+
+/* Reset card positioning — let content flow naturally */
+.timeline-card,
+.timeline-card.above,
+.timeline-card.below {
+  position: relative;
+  left: auto;
+  top: auto;
+  bottom: auto;
+  transform: none;
+  width: 100%;
+  max-width: 580px;
+  height: auto;
+  overflow: visible;
+  padding: 1.4rem 1.6rem;
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(255, 245, 200, 0.14) 0%, transparent 55%),
+    linear-gradient(155deg, #c8a568 0%, #dfc08a 25%, #e8d0a0 50%, #dfc08a 75%, #c8a568 100%);
+  box-shadow:
+    0 6px 28px rgba(0, 0, 0, 0.6),
+    0 0 16px rgba(201, 74, 26, 0.1),
+    inset 0 0 24px rgba(90, 48, 5, 0.15);
+}
+
+.tl-title {
+  font-size: 0.92rem;
+  margin-bottom: 0.6rem;
+}
+
+.tl-text {
+  font-size: 0.9rem;
+  line-height: 1.78;
+}
+
+/* Responsive — minor padding adjustment on small screens */
+@media (max-width: 600px) {
+  .timeline { padding-left: 3rem; }
+  .timeline-node {
+    left: calc(-3rem - 18px);
+    top: 2.4rem;
+  }
+  .timeline-card,
+  .timeline-card.above,
+  .timeline-card.below {
+    max-width: 100%;
+  }
+}
+
+/* ── Chronicle — Full-width archive records ─────────────────────── */
+
+.chronicle-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid rgba(201, 74, 26, 0.12);
+  border-radius: 3px;
+  overflow: hidden;
+  grid-template-columns: unset; /* clear old grid */
+}
+
+.chronicle-card {
+  background: rgba(10, 8, 6, 0.6);
+  border: none;
+  border-left: 4px solid transparent;
+  border-bottom: 1px solid rgba(201, 74, 26, 0.08);
+  border-radius: 0;
+  padding: 2rem 2.5rem 1.75rem 2.25rem;
+  display: block;
+  cursor: pointer;
+  transition: background 0.25s ease, border-left-color 0.25s ease;
+  box-shadow: none;
+  overflow: visible;
+  position: relative;
+}
+
+.chronicle-card:last-child {
+  border-bottom: none;
+}
+
+.chronicle-card:hover {
+  background: rgba(20, 15, 10, 0.85);
+  box-shadow: none;
+}
+
+.chronicle-card::before {
+  background: none; /* kill the hover shimmer — left border does the job now */
+}
+
+/* Type-specific left border colors */
+.chronicle-card[data-type="decree"]       { border-left-color: #D99145; }
+.chronicle-card[data-type="dispatch"]     { border-left-color: #A8C87A; }
+.chronicle-card[data-type="remembrance"]  { border-left-color: #9B6B9B; }
+.chronicle-card[data-type="flame-record"] { border-left-color: var(--ember-hot); }
+
+.chronicle-card:hover[data-type="decree"]       { border-left-color: #e8a850; }
+.chronicle-card:hover[data-type="dispatch"]     { border-left-color: #b8d888; }
+.chronicle-card:hover[data-type="remembrance"]  { border-left-color: #ae7bae; }
+.chronicle-card:hover[data-type="flame-record"] { border-left-color: #ffaa33; }
+
+.chronicle-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.chronicle-type {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  padding: 0.25rem 0.75rem;
+}
+
+.chronicle-date {
+  font-size: 0.88rem;
+  color: rgba(138, 114, 101, 0.58);
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.chronicle-title {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  margin-bottom: 0.65rem;
+  text-shadow: 0 0 12px rgba(255, 140, 40, 0.18);
+}
+
+.chronicle-excerpt {
+  font-size: 1rem;
+  line-height: 1.82;
+  margin-bottom: 1.1rem;
+}
+
+.chronicle-body {
+  border-top-color: transparent;
+  transition: max-height 0.15s ease, opacity 0.45s ease-out, padding-top 0.2s ease;
+}
+
+.chronicle-card.is-open .chronicle-body {
+  border-top: 1px solid rgba(201, 74, 26, 0.14);
+  padding-top: 1.2rem;
+  margin-top: 0.4rem;
+}
+
+.chronicle-body p {
+  font-size: 1.02rem;
+  line-height: 1.88;
+  margin-bottom: 1rem;
+}
+
+.chronicle-read {
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .chronicle-card { padding: 1.6rem 1.25rem 1.4rem 1.1rem; }
+  .chronicle-meta { flex-direction: column; gap: 0.3rem; }
+}
+
+/* ── Codex Nine Shadows — void atmosphere ───────────────────────── */
+
+.codex-void-section {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  padding: 3rem 1.5rem 3.5rem;
+  margin: 1rem -0.75rem 2rem;
+  position: relative;
+  overflow: hidden;
+  background:
+    /* warm ember bleeds in from the codex cards above and out to Covenant Stages below */
+    linear-gradient(to bottom, rgba(201, 74, 26, 0.10) 0%, transparent 22%),
+    linear-gradient(to top,    rgba(201, 74, 26, 0.08) 0%, transparent 22%),
+    /* cold void core */
+    radial-gradient(ellipse 90% 65% at 50% 50%, rgba(28, 8, 65, 0.36) 0%, transparent 70%),
+    #040208;
+  border-top: 1px solid rgba(80, 40, 150, 0.28);
+  border-bottom: 1px solid rgba(80, 40, 150, 0.18);
+}
+
+.codex-void-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 35% at 15% 25%, rgba(55, 15, 120, 0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 35% at 85% 75%, rgba(35, 8, 85, 0.14) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.codex-void-section .adv-rule {
+  background: linear-gradient(90deg, transparent, rgba(100, 55, 185, 0.7), transparent);
+  box-shadow: 0 0 8px rgba(80, 38, 160, 0.45);
+}
+
+.codex-void-section .adv-title {
+  color: #c098e8;
+  text-shadow:
+    0 0 12px rgba(120, 55, 210, 0.55),
+    0 0 30px rgba(80, 28, 145, 0.3);
+}
+
+.codex-void-section .adv-sub {
+  color: rgba(170, 140, 210, 0.55);
+}
+
+.codex-void-section .adv-note {
+  color: rgba(180, 155, 220, 0.45);
+  font-style: italic;
+}
+
+/* Adversary header now a full-width cell in the inner void grid */
+.codex-void-section .codex-adversary-header {
+  grid-column: 1 / -1;
+  position: relative;
+  z-index: 1;
+  padding: 1rem 0 2.5rem;
+}
+
+.codex-void-section .codex-card {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Community Gather — background watermark ────────────────────── */
+
+.bonfire-gather-section::after {
+  content: '◉';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32rem;
+  line-height: 1;
+  color: rgba(201, 74, 26, 0.03);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  font-family: sans-serif;
+}
+
+.bonfire-gather-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Vigil — dedicated button + watermark ───────────────────────── */
+
+.vigil-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28rem;
+  line-height: 1;
+  color: rgba(138, 114, 101, 0.028);
+  pointer-events: none;
+  user-select: none;
+  font-family: sans-serif;
+  z-index: 0;
+}
+
+.streams-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-vigil {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ash);
+  border: 1px solid rgba(138, 114, 101, 0.28);
+  padding: 0.75rem 2.4rem;
+  margin-top: 0.5rem;
+  transition: color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  display: inline-block;
+}
+
+.btn-vigil:hover {
+  color: var(--bone);
+  border-color: rgba(138, 114, 101, 0.6);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.05);
+}
+
+.vigil-close-rule {
+  width: 200px;
+  background: linear-gradient(90deg, transparent, rgba(201, 74, 26, 0.35), transparent);
+  box-shadow: 0 0 8px rgba(201, 74, 26, 0.2);
+}
+
+.vigil-close-creed {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: rgba(138, 114, 101, 0.5);
+}
+
+.vigil-note {
+  color: rgba(138, 114, 101, 0.52);
+  margin-bottom: 1.5rem;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 

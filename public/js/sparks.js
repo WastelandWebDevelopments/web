@@ -138,8 +138,8 @@ const FRAME_MS = 1000 / 30;
 let lastFrame  = 0;
 
 function loop(ts) {
+  if (ts - lastFrame < FRAME_MS) { requestAnimationFrame(loop); return; }
   requestAnimationFrame(loop);
-  if (ts - lastFrame < FRAME_MS) return;
   lastFrame = ts;
 
   ctx.clearRect(0, 0, W, H);
@@ -157,4 +157,8 @@ function loop(ts) {
   ctx.globalAlpha = 1;
 }
 
-requestAnimationFrame(loop);
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  canvas.style.display = 'none';
+} else {
+  requestAnimationFrame(loop);
+}
