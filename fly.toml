@@ -1,4 +1,4 @@
-app = "boxes"
+app = "lord-of-embers"
 primary_region = "dfw"
 
 [build]
@@ -19,4 +19,4 @@ primary_region = "dfw"
 
 [[vm]]
   size = "shared-cpu-1x"
-  memory = "512mb"
+  memory = "256mb"
